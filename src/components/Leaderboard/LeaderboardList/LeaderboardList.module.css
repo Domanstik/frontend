@@ -1,0 +1,21 @@
+:root {
+  --radius-xl: 24px;
+}
+
+/* Контейнер всего списка */
+.board {
+  padding-top: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Снег/пылинки */
+.board::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 100%;
+  pointer-events: none;
+  
+  background-repeat: no-repeat;
+}

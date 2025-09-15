@@ -1,0 +1,120 @@
+:root {
+  --ink: #15224b;
+  --muted: rgba(255, 255, 255, 0.75);
+
+  --gold: #ffb300;
+  --silver: #c0c6d9;
+  --bronze: #cc884a;
+
+  --rowMinH: 64px;
+  --rowMinH-active: 84px;
+}
+
+/* Строка */
+.item {
+  min-height: var(--rowMinH);
+  color: white;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 1%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+.active {
+  min-height: 7rem;
+  background: rgba(255, 255, 255, 0.5) 100%;
+}
+
+/* Кнопка-строка */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  position: relative;
+}
+
+/* Порядковый номер */
+.rank {
+  font-weight: 800;
+  font-size: 24px;
+  color: #0e1c5f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Аватар */
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6) inset;
+}
+
+.active .avatar {
+  transform: scale(1.06);
+}
+
+.top1 {
+  box-shadow:
+    0 0 0 2px var(--gold) inset,
+    0 0 0 4px rgb(255, 183, 0);
+}
+.top2 {
+  box-shadow:
+    0 0 0 2px var(--silver) inset,
+    0 0 0 4px rgb(192, 198, 217);
+}
+.top3 {
+  box-shadow:
+    0 0 0 2px var(--bronze) inset,
+    0 0 0 4px rgb(204, 136, 74);
+}
+
+/* Имя */
+.nameWrap {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.name {
+  line-height: 1.2;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: normal;
+
+  display: -webkit-box; /* мультистрочный ellipsis */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Разделитель */
+.divider {
+  height: 2px;
+  background: rgb(255, 255, 255);
+}
+
+.star {
+  margin-left: auto; /* <-- вот это прижмёт вправо */
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+.starSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #ffcc35;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+}
+.starValue {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 20px;
+  color: #0e1c5f;
+}

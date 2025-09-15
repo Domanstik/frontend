@@ -1,0 +1,75 @@
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 6rem;
+  padding-bottom: 8px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.nav_button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0;
+  position: relative;
+  z-index: 1;
+  transition: color 0.15s;
+}
+
+.nav__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 58px;
+  height: 58px;
+}
+
+.nav__icon-highlight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    32.73% 32.73% at 50% 50%,
+    rgba(255, 195, 31, 0.698) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.nav__icon-highlight--active {
+  opacity: 1;
+}
+
+.nav__icon {
+  filter: grayscale(100%) opacity(0.8);
+  position: relative;
+  z-index: 1;
+  transition: filter 0.22s;
+}
+
+.nav_button--active .nav__icon {
+  filter: none;
+}

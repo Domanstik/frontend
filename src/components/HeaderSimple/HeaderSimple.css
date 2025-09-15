@@ -1,0 +1,32 @@
+.header-simple {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  gap: 1rem;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 2rem 2rem;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  width: 100vw;
+  height: 5rem;
+}
+
+
+.header-simple__avatar {
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+}
+
+.header-simple__title {
+  flex: 1;
+  margin: 0;
+  color: #111569;
+  font-weight: 600;
+  font-size: 1.5rem;
+}

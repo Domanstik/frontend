@@ -1,0 +1,35 @@
+
+
+
+
+/* Высота радиуса шапки (подгони под свой header) */
+:root {
+  --header-radius: 24px;
+}
+
+.root {
+  position: relative;
+  /* Чтобы контент не прилипал под перекрывающую плашку */
+  padding-top: var(--header-radius);
+  /* Подтягиваем список ближе к шапке визуально */
+  margin-top: calc(-1 * var(--header-radius));
+}
+
+/* Перекрывающая плашка поверх первого уведомления */
+.root::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--header-radius));
+  height: var(--header-radius);
+  background: var(--app-bg);  /* тот же фон, что у экрана */
+  z-index: 2;                 /* выше карточек уведомлений */
+  pointer-events: none;
+}
+
+/* На всякий случай фиксируем стек для кнопок, чтобы они были ниже перекрытия */
+.button {
+  position: relative;
+  z-index: 0;
+}

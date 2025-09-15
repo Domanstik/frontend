@@ -1,0 +1,106 @@
+/* Обёртка держит абсолютное сердечко */
+.wrap {
+  position: relative;
+}
+
+/* Сам Card — прозрачный, можно оставить overflow hidden */
+.card {
+  border-radius: 16px !important;
+  padding: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 6px 18px rgba(33, 59, 128, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+
+  /* гасим дефолты Paper/Card */
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Сердце — в правом верхнем углу, слегка выпирает */
+.heartBtn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.heartIcon {
+  width: 28px !important;
+  height: 28px !important;
+  color: #ffffff; /* белое по умолчанию */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+}
+
+.heartActive .heartIcon {
+  color: #ff5e73;
+} /* красное при активном */
+
+/* остальное без изменений */
+.action {
+  border-radius: 12px;
+}
+.imageWrap {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+.imageBox {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #eeeff5 0%, #e5e9f6 100%);
+}
+.imageBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.content {
+  padding: 0 !important;
+}
+.title {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 0 0 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.priceRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+.price {
+  color: #0e1d5a;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+.star {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
