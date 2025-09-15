@@ -12,21 +12,13 @@ const MOCK = [
 
 const listVariants = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.05 }
-  }
+  show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
 };
 
 export default function ContestsList({ items = MOCK, onJoin }) {
   return (
     <div className={styles.wrap}>
-      <motion.div
-        className={styles.stack}
-        variants={listVariants}
-        initial="hidden"
-        animate="show"
-      >
+      <motion.div className={styles.stack} variants={listVariants} initial="hidden" animate="show">
         {items.map((it) => (
           <ContestsCard
             key={it.id}

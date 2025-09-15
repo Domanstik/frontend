@@ -34,17 +34,16 @@ export default function ContestsCard({
       transition={{ type: 'spring', stiffness: 320, damping: 26, mass: 0.6 }}
       layout
     >
+      {/* Часы как оверлей справа */}
+      <div className={styles.timerWrap}>
+        <AccessTimeIcon className={styles.timerIcon} />
+        <div className={styles.days}>{daysLeft} д.</div>
+      </div>
+
       <div className={styles.rowTop}>
         <div className={styles.left}>
           <div className={styles.title} title={title}>{title}</div>
-          {subtitle ? (
-            <div className={styles.subtitle} title={subtitle}>{subtitle}</div>
-          ) : null}
-        </div>
-
-        <div className={styles.timerWrap}>
-          <AccessTimeIcon className={styles.timerIcon} />
-          <div className={styles.days}>{daysLeft} д.</div>
+          {subtitle ? <div className={styles.subtitle} title={subtitle}>{subtitle}</div> : null}
         </div>
       </div>
 

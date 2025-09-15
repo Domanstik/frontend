@@ -1,43 +1,39 @@
-/* ====== ПАРАМЕТРЫ (легко крутить размер часов) ====== */
 .card {
-  --clockSize: 88px;                  /* размер иконки-часов */
-  --clockOffsetX: 12px;               /* отступ часов от правого края */
-  --clockOffsetY: 8px;                /* отступ часов сверху */
+  /* Параметры часов */
+  --clockSize: 88px;
+  --clockOffsetX: 12px;
+  --clockOffsetY: 8px;
 
   position: relative;
   padding: 12px 12px 12px;
-  padding-right: calc(var(--clockSize) + var(--clockOffsetX) + 16px); /* место под часы */
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.35);
+  padding-right: calc(var(--clockSize) + var(--clockOffsetX) + 16px); /* место под часы справа */
+  border-radius: 22px;                        /* больше скругления */
+  background: rgba(255, 255, 255, 0.35);      /* полупрозрачный фон */
   border: 1px solid rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(8px);
   box-shadow: 0 10px 24px rgba(17, 34, 68, 0.12);
-  text-align: left;
+  text-align: left;                           /* выравнивание слева */
   overflow: hidden;
 }
 
-/* верх: только текст слева — часы выведем абсолютом */
-.rowTop {
-  display: block; /* убираем влияние часов */
-}
-
+.rowTop { display: block; }
 .left { min-width: 0; }
 
-/* заголовок + сабтайтл — с троеточиями */
 .title {
   font-weight: 700;
   color: #0b2a5a;
   line-height: 1.2;
-  white-space: nowrap;
+  white-space: nowrap;     /* троеточие */
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .subtitle {
   margin-top: 2px;
   color: rgba(11, 42, 90, 0.65);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; /* троеточие */
 }
 
 /* Часы — как оверлей справа, не мешают потоку */
@@ -49,7 +45,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  pointer-events: none; /* чтобы не перехватывали клики */
+  pointer-events: none; /* не перехватывать клики */
 }
 .timerIcon {
   width: var(--clockSize);
@@ -58,12 +54,9 @@
   color: rgba(11, 42, 90, 0.55);
   line-height: 1;
 }
-.days {
-  color: rgba(11, 42, 90, 0.7);
-  font-size: 12px;
-}
+.days { color: rgba(11, 42, 90, 0.7); font-size: 12px; }
 
-/* низ карточки: два ряда статов столбцом + кнопка справа */
+/* низ карточки: столбец статов + кнопка справа */
 .rowBottom {
   display: flex;
   align-items: center;
@@ -96,7 +89,7 @@
 .starOn  { color: #FFC107; }
 .starOff { color: rgba(0,0,0,0.25); }
 
-/* Кнопка — компактная, текст внутри, не уезжает за край */
+/* Кнопка — компактная, текст внутри */
 .cta {
   white-space: nowrap;
   padding: 8px 14px;
@@ -112,28 +105,19 @@
 }
 .cta:hover { filter: brightness(0.98); }
 .cta:active { transform: translateY(0.5px); }
-.ctaActive {
-  border-color: rgba(11, 42, 90, 0.8);
-  background: rgba(255,255,255,0.95);
-}
+.ctaActive { border-color: rgba(11, 42, 90, 0.8); background: rgba(255,255,255,0.95); }
 
-/* декоративная линия справа-налево, короче, как в макете */
+/* декоративная линия */
 .lightDivider {
   margin-top: 10px;
   height: 2px;
   width: 88%;
   margin-left: 6%;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0) 0%,
-    #ffffff 20%,
-    #ffffff 80%,
-    rgba(255,255,255,0) 100%
-  );
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #ffffff 20%, #ffffff 80%, rgba(255,255,255,0) 100%);
   border-radius: 2px;
 }
 
-/* адаптив — уменьшаем часы, если экран очень узкий */
+/* адаптив — уменьшаем часы на очень узких экранах */
 @media (max-width: 360px) {
   .card { --clockSize: 72px; }
 }
