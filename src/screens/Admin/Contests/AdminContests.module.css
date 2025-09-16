@@ -1,0 +1,55 @@
+.page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(220px 160px at 50% 92%, rgba(255,230,190,0.55), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #5a76b8 0%, #90a8d6 100%);
+  position: relative;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 6px;
+}
+.back {
+  width: 36px; height: 36px; border-radius: 999px;
+  display: grid; place-items: center;
+  border: 1.5px solid rgba(27, 34, 82, .7);
+  background: rgba(255,255,255,.8);
+  color: #1b2252;
+}
+.hTitle {
+  font-size: 20px; font-weight: 700; color: #1b2252;
+}
+.hActions { display: inline-flex; gap: 8px; }
+.circle {
+  width: 32px; height: 32px; border-radius: 999px;
+  display: grid; place-items: center;
+  border: 1.5px solid rgba(27,34,82,.7); background: transparent; color: #1b2252;
+}
+
+.list { margin-top: 6px; padding: 0 6px; list-style: none; }
+.row {
+  position: relative;
+  padding: 10px 6px 12px;
+  display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start;
+}
+.texts { min-width: 0; }
+.title {
+  font-weight: 700; color: #1b2252;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.subtitle { color: rgba(27,34,82,.7); margin-top: 2px; }
+
+.delete {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: grid; place-items: center;
+  border: 0; background: transparent; color: #1b2252b0;
+}
+
+.under {
+  position: absolute; left: 6px; right: 6px; bottom: 0;
+  height: 2px; background: rgba(27,34,82,.8); border-radius: 2px;
+}

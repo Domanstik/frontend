@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
-import styles from './AdminPanel.module.css';
+import { Link } from 'react-router-dom';
 
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -11,25 +11,24 @@ import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
 import AssessmentRoundedIcon from '@mui/icons-material/AssessmentRounded';
 
 import { UIContext } from '@contexts/ui-context';
-import { Link } from 'react-router-dom';
+import styles from './AdminPanel.module.css';
 
 const rows = [
-  { id: 'contests',    title: 'Конкурсы',   leftIcon: <EmojiEventsRoundedIcon/>,  right: 'plus' },
-  { id: 'surveys',     title: 'Опросы',     leftIcon: <PollRoundedIcon/>,         right: 'plus' },
-  { id: 'winners',     title: 'Победители', leftIcon: <MilitaryTechRoundedIcon/>, right: 'chev' },
-  { id: 'merch',       title: 'Мерчандайз', leftIcon: <StorefrontRoundedIcon/>,   right: 'chev' },
-  { id: 'reports',     title: 'Отчётность', leftIcon: <AssessmentRoundedIcon/>,   right: 'chev' },
+  { id: 'contests',  title: 'Конкурсы',   leftIcon: <EmojiEventsRoundedIcon/>,  right: 'plus', to: '/admin/contests' },
+  { id: 'surveys',   title: 'Опросы',     leftIcon: <PollRoundedIcon/>,         right: 'plus', to: '/admin/surveys' },
+  { id: 'winners',   title: 'Победители', leftIcon: <MilitaryTechRoundedIcon/>, right: 'chev', to: '/admin/winners' },
+  { id: 'merch',     title: 'Мерчандайз', leftIcon: <StorefrontRoundedIcon/>,   right: 'chev', to: '/admin/merch' },
+  { id: 'reports',   title: 'Отчётность', leftIcon: <AssessmentRoundedIcon/>,   right: 'chev', to: '/admin/reports' },
 ];
 
 export default function AdminPanel() {
   const { setHeader, avatars } = useContext(UIContext);
 
+  // ставим заголовок при монтировании
   useEffect(() => {
-    setHeader(prev => {
-      if (prev?.title === 'ПАНЕЛЬ АДМИНИСТРАТОРА' && prev?.avatar === avatars?.female) return prev;
-      return { title: 'ПАНЕЛЬ АДМИНИСТРАТОРА', avatar: avatars?.female };
-    });
-  }, [setHeader, avatars]);
+    setHeader({ title: 'ПАНЕЛЬ АДМИНИСТРАТОРА', avatar: avatars?.female });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -43,22 +42,22 @@ export default function AdminPanel() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 * i, type: 'spring', stiffness: 320, damping: 26 }}
             >
-              {/* при необходимости подставь реальные маршруты в to= */}
-              <Link to="#" className={styles.row} onClick={(e)=>e.preventDefault()}>
+              <Link to={row.to} className={styles.row}>
                 <span className={styles.leftIcon}>{row.leftIcon}</span>
                 <span className={styles.title}>{row.title}</span>
 
                 {row.right === 'plus' ? (
-                  <span className={`${styles.circleBtn} ${styles.plusBtn}`}>
-                    <AddRoundedIcon/>
+                  <span className={`${styles.circleBtn} ${styles.plusBtn}`} aria-hidden="true">
+                    <AddRoundedIcon />
                   </span>
                 ) : (
-                  <span className={styles.circleBtn}>
-                    <ChevronRightRoundedIcon/>
+                  <span className={styles.circleBtn} aria-hidden="true">
+                    <ChevronRightRoundedIcon />
                   </span>
                 )}
               </Link>
-              <div className={styles.underline}/>
+
+              <div className={styles.underline} />
             </motion.li>
           ))}
         </ul>
