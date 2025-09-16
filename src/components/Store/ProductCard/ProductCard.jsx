@@ -4,23 +4,21 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import styles from './ProductCard.module.css';
 import starIcon from '@icons/starShop.svg';
 
-export default function ProductCard({ title, price, productSrc }) {
+export default function ProductCard({ title, price, productSrc, onClick }) {
   const [fav, setFav] = useState(false);
 
   return (
     <div className={styles.wrap}>
-      {/* Сердце снаружи карточки — не обрежется */}
       <button
         type="button"
         className={`${styles.heartBtn} ${fav ? styles.heartActive : ''}`}
-        aria-label={fav ? 'Убрать из избранного' : 'В избранное'}
         onClick={() => setFav(v => !v)}
       >
         <FavoriteRoundedIcon className={styles.heartIcon} />
       </button>
 
       <Card elevation={0} className={styles.card}>
-        <CardActionArea className={styles.action}>
+        <CardActionArea className={styles.action} onClick={onClick}>
           <div className={styles.imageWrap}>
             <div className={styles.imageBox}>
               <img src={productSrc} alt={title} loading="lazy" />

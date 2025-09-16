@@ -4,6 +4,8 @@ import { Box, Container, TextField, InputAdornment, Typography } from '@mui/mate
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import ProductList from '@components/Store/ProductList/ProductList';
 
+import ProductOpenCard from '@components/Store/ProductOpenCard/ProductOpenCard';
+
 const products = [
   { title: 'Футболка', price: 120, productSrc: '/images/shopItems/tshirt.jpg' },
   { title: 'Термокружка', price: 90, productSrc: '/images/shopItems/tshirt.jpg' },
@@ -22,6 +24,8 @@ const products = [
 export default function Store() {
   const { setHeader, avatars } = useContext(UIContext);
   const [q, setQ] = useState('');
+  const [selected, setSelected] = useState(null);
+
 
   // Забираем примитив, чтобы не зависеть от всего объекта
   const avatarFemale = avatars?.female;
@@ -78,8 +82,18 @@ export default function Store() {
       </Container>
 
       <Container maxWidth="sm" sx={{ pb: 2 }}>
-        <ProductList products={filtered} />
+        <ProductList products={filtered} onSelect={setSelected} />
       </Container>
+
+      <ProductOpenCard
+  product={selected}
+  open={!!selected}
+  onClose={() => setSelected(null)}
+  onToggleLike={(id) =>
+    setSelected((p) => ({ ...p, liked: !p?.liked }))
+  }
+  onBuy={(p) => console.log('buy', p)}
+/>
     </Box>
   );
 }

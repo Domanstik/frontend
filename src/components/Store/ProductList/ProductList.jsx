@@ -1,7 +1,7 @@
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 
-export default function ProductList({ products = [] }) {
+export default function ProductList({ products = [], onSelect }) {
   return (
     <div className={styles.grid}>
       {products.map((item, idx) => (
@@ -10,8 +10,10 @@ export default function ProductList({ products = [] }) {
           title={item.title}
           price={item.price}
           productSrc={item.productSrc}
+          onClick={() => onSelect?.(item)}
         />
       ))}
     </div>
   );
 }
+
