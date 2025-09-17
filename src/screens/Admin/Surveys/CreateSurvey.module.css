@@ -1,0 +1,264 @@
+.page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(
+      220px 160px at 50% 92%,
+      rgba(255, 230, 190, 0.55),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #5a76b8 0%, #90a8d6 100%);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 0;
+}
+.back {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(27, 34, 82, 0.7);
+  background: rgba(255, 255, 255, 0.8);
+  color: #1b2252;
+}
+.hTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1b2252;
+}
+
+.form {
+  max-width: 640px;
+  margin: 6px auto 0;
+  padding: 10px 12px 20px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 100px 110px;
+  gap: 10px 12px;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+.row2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -6px;
+  height: 2px;
+  background: rgba(27, 34, 82, 0.7);
+  border-radius: 2px;
+}
+
+.label {
+  color: #1b2252;
+  font-weight: 600;
+}
+.right {
+  justify-self: end;
+}
+.input,
+.selectSmall,
+.inputSmall {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(27, 34, 82, 0.35);
+  background: rgba(255, 255, 255, 0.85);
+  outline: none;
+  font-size: 14px;
+  color: #1b2252;
+}
+.selectSmall {
+  appearance: auto;
+}
+.inputSmall {
+  width: 80px;
+  text-align: center;
+}
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: end;
+}
+.langIcon {
+  opacity: 0.8;
+}
+
+.question {
+  margin-top: 10px;
+}
+.qHeader {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.qTitle {
+  font-weight: 700;
+  color: #1b2252;
+}
+.qStars {
+  display: grid;
+  grid-template-columns: auto 80px;
+  gap: 8px;
+  align-items: center;
+  color: #1b2252;
+  font-weight: 600;
+}
+
+.switchRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 8px 0;
+}
+.switchBox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #1b2252;
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(27, 34, 82, 0.35);
+  display: inline-block;
+}
+.toggle input {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.toggle i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+.toggle input:checked + i {
+  transform: translateX(20px);
+}
+
+.answersHead {
+  margin: 6px 0 4px;
+  color: #1b2252;
+  font-weight: 600;
+}
+
+.answerRow {
+  display: grid;
+  grid-template-columns: 22px 1fr 32px 32px;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.drag {
+  opacity: 0.6;
+}
+.mark,
+.remove {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 0;
+  background: transparent;
+  color: #1b2252;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(27, 34, 82, 0.35);
+  background: rgba(255, 255, 255, 0.85);
+  outline: none;
+  resize: vertical;
+  color: #1b2252;
+}
+
+.qFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+.removeQ {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: #1b2252;
+  cursor: pointer;
+}
+
+.sep {
+  height: 2px;
+  background: rgba(27, 34, 82, 0.7);
+  border-radius: 2px;
+  margin: 8px 0;
+}
+
+.addAnswer,
+.addQuestion {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: #1b2252;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 6px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.btnPrimary,
+.btnGhost {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  border: 2px solid #2c2f68;
+}
+.btnPrimary {
+  background: #2f2a7e;
+  color: #fff;
+  border-color: #2f2a7e;
+}
+.btnGhost {
+  background: transparent;
+  color: #2f2a7e;
+  border-color: #2c2f68;
+}

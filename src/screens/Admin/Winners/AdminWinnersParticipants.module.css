@@ -1,0 +1,182 @@
+.page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(
+      220px 160px at 50% 92%,
+      rgba(255, 230, 190, 0.55),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #5a76b8 0%, #90a8d6 100%);
+  padding-bottom: 72px;
+  overflow-x: hidden; /* убираем горизонтальный скролл */
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 6px;
+}
+.back {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(27, 34, 82, 0.7);
+  background: rgba(255, 255, 255, 0.85);
+  color: #1b2252;
+}
+.hTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b2252;
+}
+
+.table {
+  padding: 6px;
+}
+.tr {
+  display: grid;
+  /* компактная сетка; имя тянется, остальное — фикс */
+  grid-template-columns: 32px 44px 58px minmax(0, 1fr) 44px 56px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  border-bottom: 2px solid rgba(27, 34, 82, 0.6);
+  min-width: 0; /* важно для избежания горизонт. скролла */
+}
+.tr > * {
+  min-width: 0;
+} /* ячейки тоже могут сжиматься */
+
+.head {
+  font-weight: 700;
+  color: #1b2252;
+  opacity: 0.95;
+}
+.td,
+.th {
+  color: #1b2252;
+}
+
+.iconHead {
+  display: grid;
+  place-items: center;
+}
+.iconHead :global(svg) {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.name {
+  /* до 2 строк, без горизонтального скролла */
+  white-space: normal;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  max-height: calc(1.2em * 2);
+  overflow: hidden;
+}
+
+.attach,
+.desc {
+  display: grid;
+  place-items: center;
+}
+.iconBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(27, 34, 82, 0.45);
+  background: rgba(255, 255, 255, 0.85);
+  color: #1b2252;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.noFiles {
+  opacity: 0.6;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(144, 168, 214, 0.35) 40%,
+    rgba(144, 168, 214, 0.8) 100%
+  );
+}
+.finish {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  border: 2px solid #2c2f68;
+  background: #2f2a7e;
+  color: #fff;
+}
+.finish:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* popups */
+.popTitle {
+  margin: 0 0 8px;
+  font-weight: 800;
+}
+.popText {
+  margin: 0 0 10px;
+}
+.popList {
+  text-align: left;
+  margin: 6px 0 12px;
+}
+.popActions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.popBtn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 0;
+  background: #fff;
+  color: #2f2a7e;
+  font-weight: 800;
+  cursor: pointer;
+}
+.popBtnGhost {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* ещё ужимаем на очень узких экранах */
+@media (max-width: 400px) {
+  .tr {
+    grid-template-columns: 28px 40px 52px minmax(0, 1fr) 40px 50px;
+    gap: 6px;
+  }
+  .iconBtn {
+    width: 26px;
+    height: 26px;
+  }
+  .iconHead :global(svg) {
+    font-size: 16px;
+  }
+}

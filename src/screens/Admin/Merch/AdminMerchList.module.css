@@ -1,0 +1,99 @@
+.page {
+  padding: 12px;
+  min-height: 100dvh;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.leftBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid rgba(11, 42, 90, 0.6);
+  background: transparent;
+  color: #0b2a5a;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.toolsRight {
+  display: flex;
+  gap: 8px;
+}
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(11, 42, 90, 0.6);
+  background: transparent;
+  display: grid;
+  place-items: center;
+  color: #0b2a5a;
+  cursor: pointer;
+}
+.iconBtnActive {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 16px;
+}
+.card {
+  position: relative;
+  border-radius: 16px;
+  padding: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.1)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 6px 18px rgba(33, 59, 128, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+.imgStub {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  background: #e8ebf5;
+}
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.price {
+  font-weight: 800;
+  color: #0e1d5a;
+  font-size: 18px;
+  line-height: 1;
+}
+.star {
+  font-size: 18px;
+  color: #ffc107;
+}
+.minusBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: #ff3b30;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}

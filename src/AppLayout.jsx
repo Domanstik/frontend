@@ -9,7 +9,6 @@ import './AppLayout.css';
 export default function AppLayout() {
   const { header } = useContext(UIContext);
   const location = useLocation();
-
   const isDashboard = location.pathname === '/dashboard';
 
   return (
@@ -27,10 +26,15 @@ export default function AppLayout() {
           right={header.right}
         />
       )}
+
       <main className="app-content">
         <Outlet />
       </main>
+
       <Navigation />
+
+      {/* ВАЖНО: корень для модалок/шитов/попапов */}
+      <div id="app-portal-root" />
     </div>
   );
 }
