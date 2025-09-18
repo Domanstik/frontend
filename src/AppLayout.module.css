@@ -1,0 +1,22 @@
+.appLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  background: transparent;
+  overflow: hidden;
+}
+
+.appContent {
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-y: auto;
+  margin-top: var(--header-height-simple);
+  margin-bottom: var(--nav-height);
+}
+
+.appContentDashboard {
+  margin-top: var(--header-height-dashboard);
+}

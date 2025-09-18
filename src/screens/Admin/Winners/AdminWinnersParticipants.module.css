@@ -3,14 +3,13 @@
   background:
     radial-gradient(
       220px 160px at 50% 92%,
-      rgba(255, 230, 190, 0.55),
+      var(--admin-bubble),
       rgba(255, 255, 255, 0) 60%
     ),
-    linear-gradient(180deg, #5a76b8 0%, #90a8d6 100%);
+    linear-gradient(180deg, var(--admin-grad-start) 0%, var(--admin-grad-end) 100%);
   padding-bottom: 72px;
-  overflow-x: hidden; /* убираем горизонтальный скролл */
+  overflow-x: hidden;
 }
-
 .header {
   display: grid;
   grid-template-columns: 44px 1fr;
@@ -24,43 +23,39 @@
   border-radius: 999px;
   display: grid;
   place-items: center;
-  border: 1.5px solid rgba(27, 34, 82, 0.7);
+  border: 1.5px solid color-mix(in oklab, var(--brand-ink) 70%, transparent);
   background: rgba(255, 255, 255, 0.85);
-  color: #1b2252;
+  color: var(--brand-ink);
 }
 .hTitle {
   font-size: 20px;
   font-weight: 700;
-  color: #1b2252;
+  color: var(--brand-ink);
 }
-
 .table {
   padding: 6px;
 }
 .tr {
   display: grid;
-  /* компактная сетка; имя тянется, остальное — фикс */
   grid-template-columns: 32px 44px 58px minmax(0, 1fr) 44px 56px;
   align-items: center;
   gap: 8px;
   padding: 8px 6px;
-  border-bottom: 2px solid rgba(27, 34, 82, 0.6);
-  min-width: 0; /* важно для избежания горизонт. скролла */
+  border-bottom: 2px solid color-mix(in oklab, var(--brand-ink) 60%, transparent);
+  min-width: 0;
 }
 .tr > * {
   min-width: 0;
-} /* ячейки тоже могут сжиматься */
-
+}
 .head {
   font-weight: 700;
-  color: #1b2252;
+  color: var(--brand-ink);
   opacity: 0.95;
 }
 .td,
 .th {
-  color: #1b2252;
+  color: var(--brand-ink);
 }
-
 .iconHead {
   display: grid;
   place-items: center;
@@ -69,9 +64,7 @@
   font-size: 18px;
   opacity: 0.9;
 }
-
 .name {
-  /* до 2 строк, без горизонтального скролла */
   white-space: normal;
   word-break: break-word;
   display: -webkit-box;
@@ -81,7 +74,6 @@
   max-height: calc(1.2em * 2);
   overflow: hidden;
 }
-
 .attach,
 .desc {
   display: grid;
@@ -91,9 +83,9 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  border: 1px solid rgba(27, 34, 82, 0.45);
+  border: 1px solid color-mix(in oklab, var(--brand-ink) 45%, transparent);
   background: rgba(255, 255, 255, 0.85);
-  color: #1b2252;
+  color: var(--brand-ink);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -101,7 +93,6 @@
 .noFiles {
   opacity: 0.6;
 }
-
 .footer {
   position: fixed;
   left: 0;
@@ -113,24 +104,22 @@
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(144, 168, 214, 0.35) 40%,
-    rgba(144, 168, 214, 0.8) 100%
+    color-mix(in oklab, var(--admin-grad-end) 35%, transparent) 40%,
+    color-mix(in oklab, var(--admin-grad-end) 80%, transparent) 100%
   );
 }
 .finish {
   padding: 10px 22px;
   border-radius: 999px;
   font-weight: 800;
-  border: 2px solid #2c2f68;
-  background: #2f2a7e;
+  border: 2px solid color-mix(in oklab, var(--brand-ink) 80%, transparent);
+  background: var(--brand);
   color: #fff;
 }
 .finish:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
-
-/* popups */
 .popTitle {
   margin: 0 0 8px;
   font-weight: 800;
@@ -147,26 +136,23 @@
   justify-content: center;
   gap: 8px;
 }
-.popBtn {
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 0;
-  background: #fff;
-  color: #2f2a7e;
-  font-weight: 800;
-  cursor: pointer;
-}
+.popBtn,
 .popBtnGhost {
   padding: 8px 14px;
   border-radius: 999px;
-  border: 2px solid #fff;
-  background: transparent;
-  color: #fff;
   font-weight: 800;
   cursor: pointer;
 }
-
-/* ещё ужимаем на очень узких экранах */
+.popBtn {
+  border: 0;
+  background: #fff;
+  color: var(--brand);
+}
+.popBtnGhost {
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+}
 @media (max-width: 400px) {
   .tr {
     grid-template-columns: 28px 40px 52px minmax(0, 1fr) 40px 50px;

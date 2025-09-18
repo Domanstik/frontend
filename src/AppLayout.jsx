@@ -1,18 +1,27 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { useContext } from 'react';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { AnimatePresence, motion } from 'framer-motion';
 import HeaderSimple from '@components/HeaderSimple/HeaderSimple';
 import HeaderDashboard from '@components/Dashboard/HeaderDashboard/HeaderDashboard';
 import Navigation from '@components/Navigation/Navigation';
-import { UIContext } from '@contexts/ui-context';
-import './AppLayout.css';
+import { selectHeader } from './store/slices/uiSlice';
+import styles from './AppLayout.module.css';
 
 export default function AppLayout() {
-  const { header } = useContext(UIContext);
+  const header = useSelector(selectHeader);
   const location = useLocation();
   const isDashboard = location.pathname === '/dashboard';
+  const contentClassName = useMemo(
+    () =>
+      isDashboard
+        ? `${styles.appContent} ${styles.appContentDashboard}`
+        : styles.appContent,
+    [isDashboard],
+  );
 
   return (
-    <div className={`app-layout ${isDashboard ? 'app-layout--dashboard' : ''}`}>
+    <div className={styles.appLayout}>
       {isDashboard ? (
         <HeaderDashboard
           title={header.title}
@@ -27,13 +36,20 @@ export default function AppLayout() {
         />
       )}
 
-      <main className="app-content">
-        <Outlet />
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          className={contentClassName}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
 
       <Navigation />
-
-      {/* ВАЖНО: корень для модалок/шитов/попапов */}
       <div id="app-portal-root" />
     </div>
   );

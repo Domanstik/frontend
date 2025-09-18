@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
@@ -7,30 +8,21 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
-import { UIContext } from '@contexts/ui-context';
+import { setHeader } from '@/store/slices/uiSlice';
+import { adminMerch as MOCK } from '@/mocks/admin';
 import styles from './AdminMerchList.module.css';
 
-const MOCK = [
-  { id: 'p1', title: 'Футболка', price: 3, image: '' },
-  { id: 'p2', title: 'Кружка',    price: 5, image: '' },
-  { id: 'p3', title: 'Кепка',     price: 10, image: '' },
-  { id: 'p4', title: 'Рюкзак',    price: 25, image: '' },
-];
-
 export default function AdminMerchList() {
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
   const [items, setItems] = useState(MOCK);
   const [removeMode, setRemoveMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeader(prev => {
-      if (prev?.title === 'Мерчандайз' && prev?.avatar === avatars?.female) return prev;
-      return { title: 'Мерчандайз', avatar: avatars?.female };
-    });
-  }, [setHeader, avatars]);
+    dispatch(setHeader({ title: 'Мерчандайз', avatar: '' }));
+  }, [dispatch]);
 
-  const onRemove = (id) => setItems(arr => arr.filter(x => x.id !== id));
+  const onRemove = (id) => setItems((arr) => arr.filter((x) => x.id !== id));
 
   return (
     <div className={styles.page}>
@@ -38,14 +30,13 @@ export default function AdminMerchList() {
         <button className={styles.leftBtn} onClick={() => navigate(-1)}>
           <ArrowBackIosNewRoundedIcon /> Назад
         </button>
-
         <div className={styles.toolsRight}>
           <button className={styles.iconBtn} onClick={() => navigate('/admin/merch/new')}>
             <AddRoundedIcon />
           </button>
           <button
             className={`${styles.iconBtn} ${removeMode ? styles.iconBtnActive : ''}`}
-            onClick={() => setRemoveMode(v => !v)}
+            onClick={() => setRemoveMode((v) => !v)}
           >
             <RemoveRoundedIcon />
           </button>
@@ -71,7 +62,10 @@ export default function AdminMerchList() {
             {removeMode && (
               <button
                 className={styles.minusBadge}
-                onClick={(e) => { e.stopPropagation(); onRemove(it.id); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemove(it.id);
+                }}
                 aria-label="Удалить"
               >
                 <RemoveRoundedIcon />

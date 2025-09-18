@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { UIContext } from '@contexts/ui-context';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -8,38 +8,34 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
+import { setHeader } from '@/store/slices/uiSlice';
+import { adminContests as MOCK } from '@/mocks/admin';
 import styles from './AdminContests.module.css';
 
-const MOCK = [
-  { id: 'c1', title: 'Новый конкурс 1', subtitle: 'время опроса', starsJoin: 1, starsWin: 2, period: '01.03—07.03', locale: 'all', lang: 'ru' },
-  { id: 'c2', title: 'Участие в съёмках для соц.сетей', subtitle: '7 дн.', starsJoin: 1, starsWin: 3, period: '10.03—17.03', locale: 'hq', lang: 'ru' },
-];
-
 export default function AdminContests() {
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
   const [items, setItems] = useState(MOCK);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeader(prev => {
-      if (prev?.title === 'Конкурсы' && prev?.avatar === avatars?.female) return prev;
-      return { title: 'Конкурсы', avatar: avatars?.female };
-    });
-  }, [setHeader, avatars]);
+    dispatch(setHeader({ title: 'Конкурсы', avatar: '' }));
+  }, [dispatch]);
 
-  const remove = (id) => setItems(arr => arr.filter(x => x.id !== id));
+  const remove = (id) => setItems((arr) => arr.filter((x) => x.id !== id));
   const openEdit = (item) => navigate(`/admin/contests/${item.id}/edit`, { state: item });
 
   return (
     <div className={styles.page}>
-      {/* ====== HEADER ====== */}
       <div className={styles.header}>
-        <button className={styles.back} onClick={() => navigate(-1)} type="button" aria-label="Назад">
+        <button
+          className={styles.back}
+          onClick={() => navigate(-1)}
+          type="button"
+          aria-label="Назад"
+        >
           <ArrowBackIosNewRoundedIcon />
         </button>
-
         <div className={styles.hTitle}>Конкурсы</div>
-
         <div className={styles.hActions}>
           <button
             className={styles.circle}
@@ -54,7 +50,6 @@ export default function AdminContests() {
           </button>
         </div>
       </div>
-      {/* ===================== */}
 
       <ul className={styles.list}>
         {items.map((it, i) => (
@@ -76,7 +71,10 @@ export default function AdminContests() {
 
             <button
               className={styles.delete}
-              onClick={(e) => { e.stopPropagation(); remove(it.id); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                remove(it.id);
+              }}
               aria-label="Удалить"
               type="button"
             >

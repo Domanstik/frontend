@@ -1,20 +1,16 @@
-import { useEffect, useContext, useState } from 'react';
-import { UIContext } from '@contexts/ui-context';
-
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setHeader } from '@/store/slices/uiSlice';
 import ContestsList from '@components/Contests/ContestsList/ContestsList';
 import ContestsOpenCard from '@components/Contests/ContestsOpenCard/ContestsOpenCard';
 
 export default function Contests() {
-  const [selected, setSelected] = useState(null); // выбранный конкурс
-
- const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    setHeader({
-      title: 'Конкурсы',
-      avatar: avatars.female,
-    });
-  }, []);
+    dispatch(setHeader({ title: 'Конкурсы', avatar: '' }));
+  }, [dispatch]);
 
   return (
     <>

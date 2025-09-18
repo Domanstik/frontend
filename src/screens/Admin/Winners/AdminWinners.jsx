@@ -1,25 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
-import { UIContext } from '@contexts/ui-context';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import { setHeader } from '@/store/slices/uiSlice';
+import { adminWinners as MOCK } from '@/mocks/admin';
 import styles from './AdminWinners.module.css';
 
-const MOCK = [
-  { id: 'w1', title: 'Участие в съёмках для соц.сетей', subtitle: '7 дн.' },
-  { id: 'w2', title: 'Фото-конкурс «8 марта»', subtitle: '3 дн.' },
-];
-
 export default function AdminWinners() {
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
   const [items] = useState(MOCK);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeader({ title: 'Победители', avatar: avatars?.female });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(setHeader({ title: 'Победители', avatar: '' }));
+  }, [dispatch]);
 
   return (
     <div className={styles.page}>

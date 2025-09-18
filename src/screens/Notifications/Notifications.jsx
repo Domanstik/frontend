@@ -1,74 +1,14 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setHeader } from '@/store/slices/uiSlice';
 import NotificationsList from '@components/Dashboard/NotificationsList/NotificationsList';
-import { UIContext } from '@contexts/ui-context';
-
-const mock = [
-  { id: 1, title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе', date: '17/03/25' },
-  { id: 2, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 3, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 4, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  { id: 5, title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе', date: '17/03/25' },
-  { id: 6, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 7, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 8, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  { id: 9, title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе', date: '17/03/25' },
-  { id: 10, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 11, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 12, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  {
-    id: 13,
-    title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе',
-    date: '17/03/25',
-  },
-  { id: 14, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 15, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 16, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  {
-    id: 17,
-    title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе',
-    date: '17/03/25',
-  },
-  { id: 18, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 19, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 20, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  {
-    id: 21,
-    title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе',
-    date: '17/03/25',
-  },
-  { id: 22, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 23, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 24, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  {
-    id: 25,
-    title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе',
-    date: '17/03/25',
-  },
-  { id: 26, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 27, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 28, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-  {
-    id: 29,
-    title: 'Вам начислена 1 звезда\nза участие в фотоконкурсе',
-    date: '17/03/25',
-  },
-  { id: 30, title: 'У Вашего коллеги\nКати Петровой День Рождения', date: '22/04/25' },
-  { id: 31, title: 'Ваш товар готов к выдаче', date: '10/06/25' },
-  { id: 32, title: 'Новый челлендж стартовал.\nУчаствуй!', date: '11/06/25' },
-];
+import mock from '@/mocks/notifications';
 
 export default function Notifications() {
-  const { setHeader, avatars } = useContext(UIContext);
-
-  // Забираем примитив, чтобы не зависеть от всего объекта
-  const avatarFemale = avatars?.female;
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    // Не обновляем, если уже установлено нужное значение
-    setHeader((prev) => {
-      if (prev?.title === 'МАГАЗИН' && prev?.avatar === avatarFemale) return prev;
-      return { title: 'МАГАЗИН', avatar: avatarFemale };
-    });
-  }, [setHeader, avatarFemale]); // <-- больше НЕТ avatars в зависимостях
+    dispatch(setHeader({ title: 'МАГАЗИН', avatar: '' }));
+  }, [dispatch]);
+
   return <NotificationsList items={mock} onItemClick={(n) => console.log('open', n)} />;
 }

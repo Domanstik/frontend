@@ -1,0 +1,122 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100dvh;
+  min-height: 100dvh;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure {
+  margin: 0;
+}
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+:root {
+  /* base */
+  --color-bg: var(--tg-theme-bg-color, #f7f7f7);
+  --color-surface: #ffffff;
+  --color-text: var(--tg-theme-text-color, #0b0b0b);
+  --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
+
+  /* brand */
+  --brand: #2f2a7e;
+  --brand-ink: #1b2252;
+  --accent: #7b61ff;
+
+  /* state */
+  --primary: var(--tg-theme-button-color, #2563eb);
+  --on-primary: var(--tg-theme-button-text-color, #ffffff);
+
+  /* radius / shadow / spacing */
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-22: 22px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md:
+    0 6px 18px rgba(33, 59, 128, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --s-50: 0.25rem;
+  --s-100: 0.5rem;
+  --s-150: 0.75rem;
+  --s-200: 1rem;
+  --s-300: 1.5rem;
+  --s-400: 2rem;
+
+  /* layout */
+  --header-height-simple: 5.5rem;
+  --header-height-dashboard: 180px;
+  --nav-height: 5rem;
+
+  /* gradients (admin) */
+  --admin-grad-start: #5a76b8;
+  --admin-grad-end: #90a8d6;
+  --admin-bubble: rgba(255, 230, 190, 0.55);
+
+  /* dashboard */
+  --star: #f3c419;
+
+  color-scheme: light;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Inter,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+
+  --app-bg-image: none;
+}
+
+html {
+  background-image: var(--app-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Dark theme toggle: document.documentElement.dataset.theme='dark' */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0e1222;
+  --color-surface: #151a2e;
+  --color-text: #f2f3f7;
+  --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
+  --brand: #6d6aff;
+  --brand-ink: #cfd6ff;
+
+  --admin-grad-start: #2a3c6e;
+  --admin-grad-end: #4d6096;
+  --admin-bubble: rgba(195, 170, 255, 0.4);
+
+  --star: #ffd34d;
+}

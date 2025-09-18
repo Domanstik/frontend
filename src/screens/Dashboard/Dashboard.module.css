@@ -1,0 +1,41 @@
+.page {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-200);
+  padding-top: var(--s-200);
+}
+.name {
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+.card {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-16);
+  display: grid;
+  place-items: center;
+  background-color: color-mix(in oklab, var(--color-surface) 12%, transparent);
+  border: 1.5px solid color-mix(in oklab, var(--color-text) 60%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-sm);
+}
+.counter {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-weight: 800;
+  color: var(--brand-ink);
+  line-height: 1;
+  font-size: 1.25rem;
+}
+.star {
+  font-size: 64px !important;
+  color: var(--star);
+}
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1rem;
+}

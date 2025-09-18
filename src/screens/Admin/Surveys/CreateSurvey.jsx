@@ -1,8 +1,7 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { UIContext } from '@contexts/ui-context';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -10,37 +9,33 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import DragIndicatorRoundedIcon from '@mui/icons-material/DragIndicatorRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
-
+import { setHeader } from '@/store/slices/uiSlice';
 import styles from './CreateSurvey.module.css';
 
-// вопрос типов: "options" (один/несколько) и "text"
 const mkQuestion = () => ({
   id: crypto.randomUUID(),
-  type: 'options', // 'options' | 'text'
+  type: 'options',
   title: '',
   stars: '',
-  multiple: false, // для options
+  multiple: false,
   answers: [{ id: crypto.randomUUID(), text: '', correct: false }],
 });
 
 export default function CreateSurvey() {
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeader({ title: 'Создание опроса', avatar: avatars?.female });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(setHeader({ title: 'Создание опроса', avatar: '' }));
+  }, [dispatch]);
 
   const [meta, setMeta] = useState({ name: '', locale: 'all', lang: 'ru' });
   const [questions, setQuestions] = useState([mkQuestion()]);
 
   const addQuestion = () => setQuestions((q) => [...q, mkQuestion()]);
   const removeQuestion = (qid) => setQuestions((q) => q.filter((x) => x.id !== qid));
-
   const patchQ = (qid, patch) =>
     setQuestions((q) => q.map((x) => (x.id === qid ? { ...x, ...patch } : x)));
-
   const addAnswer = (qid) =>
     setQuestions((q) =>
       q.map((x) =>
@@ -72,10 +67,8 @@ export default function CreateSurvey() {
         x.id === qid ? { ...x, answers: x.answers.filter((a) => a.id !== aid) } : x,
       ),
     );
-
   const submit = (e) => {
     e.preventDefault();
-    // TODO: отправить на бэкенд
     console.log('survey:', { meta, questions });
     navigate(-1);
   };
@@ -96,7 +89,6 @@ export default function CreateSurvey() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
       >
-        {/* Заголовок/локализация */}
         <div className={styles.row2}>
           <label className={styles.label}>Название</label>
           <input
@@ -104,7 +96,6 @@ export default function CreateSurvey() {
             value={meta.name}
             onChange={(e) => setMeta((m) => ({ ...m, name: e.target.value }))}
           />
-
           <label className={`${styles.label} ${styles.right}`}>Локация</label>
           <select
             className={styles.selectSmall}
@@ -115,7 +106,6 @@ export default function CreateSurvey() {
             <option value="hq">HQ</option>
             <option value="minsk">Minsk</option>
           </select>
-
           <label className={`${styles.label} ${styles.right}`}>Язык</label>
           <div className={styles.lang}>
             <LanguageRoundedIcon className={styles.langIcon} />
@@ -131,8 +121,7 @@ export default function CreateSurvey() {
           </div>
         </div>
 
-        {/* Вопросы */}
-        {questions.map((q, idx) => (
+        {questions.map((q) => (
           <div className={styles.question} key={q.id}>
             <div className={styles.qHeader}>
               <div className={styles.qTitle}>Вопрос</div>
@@ -154,7 +143,6 @@ export default function CreateSurvey() {
               onChange={(e) => patchQ(q.id, { title: e.target.value })}
             />
 
-            {/* Переключатель типа */}
             <div className={styles.switchRow}>
               <div className={styles.switchBox}>
                 <span>Несколько вариантов</span>
@@ -169,7 +157,6 @@ export default function CreateSurvey() {
                   <i />
                 </label>
               </div>
-
               <div className={styles.switchBox}>
                 <span>Текстовое поле</span>
                 <label className={styles.toggle}>
@@ -185,7 +172,6 @@ export default function CreateSurvey() {
               </div>
             </div>
 
-            {/* Контент вопроса */}
             {q.type === 'text' ? (
               <textarea
                 className={styles.textarea}
@@ -196,8 +182,7 @@ export default function CreateSurvey() {
             ) : (
               <>
                 <div className={styles.answersHead}>Варианты ответа</div>
-
-                {q.answers.map((a, ai) => (
+                {q.answers.map((a) => (
                   <div key={a.id} className={styles.answerRow}>
                     <DragIndicatorRoundedIcon className={styles.drag} />
                     <input
@@ -210,10 +195,8 @@ export default function CreateSurvey() {
                       className={styles.mark}
                       type="button"
                       onClick={() => {
-                        if (q.multiple) {
-                          patchA(q.id, a.id, { correct: !a.correct });
-                        } else {
-                          // один правильный
+                        if (q.multiple) patchA(q.id, a.id, { correct: !a.correct });
+                        else
                           setQuestions((list) =>
                             list.map((qq) =>
                               qq.id !== q.id
@@ -227,7 +210,6 @@ export default function CreateSurvey() {
                                   },
                             ),
                           );
-                        }
                       }}
                       title="Отметить"
                     >
@@ -246,7 +228,6 @@ export default function CreateSurvey() {
                     </button>
                   </div>
                 ))}
-
                 <button
                   className={styles.addAnswer}
                   type="button"
@@ -266,7 +247,6 @@ export default function CreateSurvey() {
                 <RemoveRoundedIcon /> Удалить вопрос
               </button>
             </div>
-
             <div className={styles.sep} />
           </div>
         ))}

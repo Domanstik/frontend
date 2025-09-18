@@ -1,31 +1,27 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-
-import { UIContext } from '@contexts/ui-context';
+import { useDispatch } from 'react-redux';
+import { setHeader } from '@/store/slices/uiSlice';
 import styles from './AdminMerchForm.module.css';
 
 export default function AdminMerchForm() {
-  const { id } = useParams();               // "new" нет — тогда будет undefined
-  const { state } = useLocation();          // пришли из списка — объект товара
+  const { id } = useParams();
+  const { state } = useLocation();
   const navigate = useNavigate();
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setHeader(prev => {
-      if (prev?.title === 'Карточка мерча' && prev?.avatar === avatars?.female) return prev;
-      return { title: 'Карточка мерча', avatar: avatars?.female };
-    });
-  }, [setHeader, avatars]);
+    dispatch(setHeader({ title: 'Карточка мерча', avatar: '' }));
+  }, [dispatch]);
 
   const isEdit = Boolean(id);
   const initial = useMemo(
     () => state ?? { title: '', price: 0, description: '', image: '' },
-    [state]
+    [state],
   );
 
   const [title, setTitle] = useState(initial.title);
@@ -34,7 +30,6 @@ export default function AdminMerchForm() {
   const [image, setImage] = useState(initial.image);
 
   const fileRef = useRef(null);
-
   const onPick = () => fileRef.current?.click();
   const onFile = (e) => {
     const f = e.target.files?.[0];
@@ -42,10 +37,8 @@ export default function AdminMerchForm() {
     const url = URL.createObjectURL(f);
     setImage(url);
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
-    // сюда добавишь вызов API
     navigate('/admin/merch');
   };
 
@@ -99,8 +92,16 @@ export default function AdminMerchForm() {
         />
 
         <div className={styles.actions}>
-          <button className={styles.ok} type="submit">{isEdit ? 'Сохранить' : 'Ок'}</button>
-          <button className={styles.cancel} type="button" onClick={() => navigate('/admin/merch')}>Отмена</button>
+          <button className={styles.ok} type="submit">
+            {isEdit ? 'Сохранить' : 'Ок'}
+          </button>
+          <button
+            className={styles.cancel}
+            type="button"
+            onClick={() => navigate('/admin/merch')}
+          >
+            Отмена
+          </button>
         </div>
       </motion.form>
     </div>

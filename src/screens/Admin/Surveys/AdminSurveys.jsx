@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { UIContext } from '@contexts/ui-context';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -8,19 +8,18 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
+import { setHeader } from '@/store/slices/uiSlice';
+import { adminSurveys as MOCK } from '@/mocks/admin';
 import styles from './AdminSurveys.module.css';
 
-const MOCK = [{ id: 's1', title: 'Новый опрос 1', subtitle: 'время опроса' }];
-
 export default function AdminSurveys() {
-  const { setHeader, avatars } = useContext(UIContext);
+  const dispatch = useDispatch();
   const [items, setItems] = useState(MOCK);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeader({ title: 'Опросы', avatar: avatars?.female });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(setHeader({ title: 'Опросы', avatar: '' }));
+  }, [dispatch]);
 
   const remove = (id) => setItems((x) => x.filter((i) => i.id !== id));
 
