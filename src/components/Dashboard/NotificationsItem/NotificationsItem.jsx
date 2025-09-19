@@ -1,33 +1,27 @@
-import React from 'react';
-import { ListItem, ListItemButton, Typography, Divider } from '@mui/material';
+import { motion } from 'framer-motion';
 import styles from './NotificationsItem.module.css';
 
-export default function NotificationsItem({ title, date, onClick, isFirst = false }) {
+export default function NotificationsItem({ title, date, onClick, isFirst = false, variants, customDelay = 0 }) {
   return (
     <>
-      <ListItem
-        disableGutters
+      <motion.li
         className={styles.item}
-        sx={{ py: 0, px: 0, minHeight: 0 }}
+        variants={variants}
+        transition={{ delay: customDelay }}
       >
-        <ListItemButton
+        <motion.button
           className={`${styles.button} ${isFirst ? styles.buttonFirst : ''}`}
           onClick={onClick}
+          whileTap={{ scale: 0.98 }}
+          whileHover={{ y: -1 }}
         >
           <div className={`${styles.content} ${isFirst ? styles.contentFirst : ''}`}>
-            <Typography variant="body1" className={styles.title}>
-              {title}
-            </Typography>
+            <div className={styles.title}>{title}</div>
           </div>
-          <Typography
-            variant="body2"
-            className={`${styles.date} ${isFirst ? styles.dateFirst : ''}`}
-          >
-            {date}
-          </Typography>
-        </ListItemButton>
-      </ListItem>
-      <Divider className={styles.divider} />
+          <div className={`${styles.date} ${isFirst ? styles.dateFirst : ''}`}>{date}</div>
+        </motion.button>
+      </motion.li>
+      <div className={styles.divider} />
     </>
   );
 }

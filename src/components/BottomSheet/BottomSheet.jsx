@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getPortalRoot } from '../../lib/getPortalRoot';
 import styles from './BottomSheet.module.css';
 
 export default function BottomSheet({
-  open,
-  onClose,
-  children,
-  initialFocusRef,
-  height = '72vh',
-  ariaLabel = 'Всплывающее окно'
+  open, onClose, children, initialFocusRef, height = '72vh', ariaLabel = 'Всплывающее окно'
 }) {
   const sheetRef = useRef(null);
 
@@ -58,6 +54,6 @@ export default function BottomSheet({
         </div>
       )}
     </AnimatePresence>,
-    document.body
+    getPortalRoot()
   );
 }

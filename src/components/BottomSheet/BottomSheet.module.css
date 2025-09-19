@@ -1,11 +1,5 @@
 .root { position: fixed; inset: 0; z-index: 999; }
-
-.backdrop {
-  position: absolute; inset: 0;
-  background: rgba(10, 20, 40, 0.45);
-  border: 0; padding: 0;
-}
-
+.backdrop { position: absolute; inset: 0; background: color-mix(in oklab, black 55%, transparent); border: 0; padding: 0; }
 .sheet {
   position: absolute; left: 0; right: 0; bottom: 0;
   background:
@@ -15,11 +9,10 @@
   box-shadow: 0 -10px 30px rgba(16, 33, 80, 0.25);
   display: flex; flex-direction: column; overflow: hidden;
 }
-
-.handle {
-  width: 44px; height: 5px; border-radius: 999px;
-  background: rgba(0,0,0,0.2);
-  margin: 8px auto 4px;
-}
-
+.handle { width: 44px; height: 5px; border-radius: 999px; background: rgba(0,0,0,0.2); margin: 8px auto 4px; }
 .content { padding: 16px; overflow: auto; -webkit-overflow-scrolling: touch; }
+:root[data-theme="dark"] .sheet {
+  background:
+    radial-gradient(ellipse at 50% 95%, rgba(255,242,225,0.15), rgba(0,0,0,0) 45%),
+    linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.45) 100%);
+}

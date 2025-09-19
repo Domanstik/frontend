@@ -1,4 +1,4 @@
-.header-simple {
+.header {
   display: flex;
   position: fixed;
   top: 0;
@@ -6,27 +6,31 @@
   align-items: center;
   gap: 1rem;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-radius: 0 0 2rem 2rem;
-  background-color: #ffffff;
-  padding: 1.5rem;
+  background: var(--color-surface);
+  padding: 1rem 1.5rem;
   width: 100vw;
-  height: 5rem;
+  height: var(--header-height-simple, 5.5rem);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
-
-.header-simple__avatar {
+.avatar,
+.avatarStub {
   flex-shrink: 0;
-  border-radius: 50%;
   width: 3.5rem;
   height: 3.5rem;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--color-text) 15%, transparent);
   object-fit: cover;
 }
-
-.header-simple__title {
+.title {
   flex: 1;
   margin: 0;
-  color: #111569;
-  font-weight: 600;
-  font-size: 1.5rem;
+  color: var(--brand-ink);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.right,
+.rightStub {
+  width: 2.5rem;
+  height: 2.5rem;
 }

@@ -1,45 +1,35 @@
-/* Фиксированная шапка */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
-
   width: 100vw;
-  height: 180px;
+  height: var(--header-height-dashboard, 180px);
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   overflow: hidden;
-
   pointer-events: none;
 }
-
-/* Вместо .avatar */
 .bgImg {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 100%;   /* ровно высота header */
-  width: auto;    /* ширина по пропорции */
+  height: 100%;
+  width: auto;
   display: block;
   pointer-events: none;
 }
-
-
-/* Оверлей */
 .overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(120% 100% at 50% 0%,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 255, 255, 0.7) 100%);
-  mix-blend-mode: normal;
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
 }
-
-/* Панель действий */
 .actions {
   position: absolute;
   top: calc(8px + env(safe-area-inset-top, 0px));
@@ -48,29 +38,30 @@
   gap: 0.5rem;
   pointer-events: auto;
 }
-
-/* Кнопки без !important: повышаем специфичность через .MuiIconButton-root */
-.iconButton.MuiIconButton-root {
-  color: #0a1a5c;
-  background: rgba(255, 255, 255, 0.8);
+.iconButton {
+  color: var(--brand-ink);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(6px);
   border-radius: 12px;
   padding: 6px;
-  transition: transform 120ms ease, background 120ms ease;
+  border: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
-
-.iconButton.MuiIconButton-root:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-/* Тень по низу */
 .header::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   box-shadow: 0 8px 20px rgba(10, 26, 92, 0.15);
   pointer-events: none;
+}
+:root[data-theme='dark'] .overlay {
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
 }

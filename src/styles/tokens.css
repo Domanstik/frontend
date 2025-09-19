@@ -1,0 +1,25 @@
+:root {
+  --color-bg: #eef3ff;
+  --color-surface: #ffffff;
+  --color-text: #0e1c5f;
+  --brand-ink: #0a1a5c;
+  --star: #ffcc35;
+
+  --header-height-dashboard: 180px;
+  --header-height-simple: 5.5rem;
+  --nav-height: 6rem;
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0b0f1e;
+  --color-surface: #121730;
+  --color-text: #e8ebff;
+  --brand-ink: #dbe2ff;
+  --star: #ffd45a;
+}
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}

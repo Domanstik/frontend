@@ -1,17 +1,19 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { createPortal } from 'react-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import StarIcon from '@mui/icons-material/Star';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import Popup from '@components/UI/Popup/Popup';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleFavorite, selectIsFav } from '@store/slices/shopSlice';
 import styles from './ProductOpenCard.module.css';
 
-export default function ProductOpenCard({
-  product, open = false, onClose, onToggleLike, onBuy
-}) {
+export default function ProductOpenCard({ product, open = false, onClose, onBuy }) {
   const buyBtnRef = useRef(null);
   const [thanksOpen, setThanksOpen] = useState(false);
+  const dispatch = useDispatch();
+  const fav = useSelector(selectIsFav(product?.id));
+
   if (!open || !product) return null;
 
   const handleBuy = () => {
@@ -19,7 +21,7 @@ export default function ProductOpenCard({
     setThanksOpen(true);
   };
 
-  return createPortal(
+  return (
     <>
       <div className={styles.root} role="dialog" aria-modal="true" aria-label="Карточка товара">
         <motion.button
@@ -42,24 +44,24 @@ export default function ProductOpenCard({
               <ArrowBackIosNewIcon className={styles.backIcon} /> Назад
             </button>
             <button
-              className={`${styles.heart} ${product.liked ? styles.heartOn : ''}`}
-              onClick={() => onToggleLike?.(product.id)}
-              aria-pressed={!!product.liked}
-              aria-label={product.liked ? 'Убрать из избранного' : 'В избранное'}
+              className={`${styles.heart} ${fav ? styles.heartOn : ''}`}
+              onClick={() => dispatch(toggleFavorite(product.id))}
+              aria-pressed={!!fav}
+              aria-label={fav ? 'Убрать из избранного' : 'В избранное'}
             >
-              <FavoriteIcon />
+              <FavoriteRoundedIcon />
             </button>
           </div>
 
           <div className={styles.imageWrap}>
             {product.image ? (
               <img src={product.image} alt={product.title} className={styles.image} />
-            ) : <div className={styles.imageStub} /> }
+            ) : <div className={styles.imageStub} />}
           </div>
 
           <div className={styles.info}>
             <div className={styles.titleRow}>
-              <div className={styles.rating}>{product.rating ?? 5}<StarIcon className={styles.star} /></div>
+              <div className={styles.rating}>{product.rating ?? 5}<StarRoundedIcon className={styles.star} /></div>
               <h2 className={styles.title} title={product.title}>{product.title}</h2>
             </div>
             {product.description ? <p className={styles.desc}>{product.description}</p> : null}
@@ -69,12 +71,10 @@ export default function ProductOpenCard({
         </motion.div>
       </div>
 
-      {/* POPUP СПАСИБО */}
       <Popup open={thanksOpen} onClose={() => setThanksOpen(false)}>
-        <h3 className={styles.popupTitle}>Спасибо большое!<br/>С&nbsp;Вами свяжется<br/>Ваш HR-менеджер!</h3>
+        <h3 className={styles.popupTitle}>Спасибо большое!<br />С&nbsp;Вами свяжется<br />Ваш HR-менеджер!</h3>
         <button className={styles.popupBtn} onClick={() => setThanksOpen(false)}>Закрыть</button>
       </Popup>
-    </>,
-    document.body
+    </>
   );
 }

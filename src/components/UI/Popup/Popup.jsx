@@ -1,6 +1,7 @@
-import React from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { getPortalRoot } from '../../../lib/getPortalRoot';
+import { springMd } from '../../../lib/motionConfig';
 import styles from './Popup.module.css';
 
 export default function Popup({ open, onClose, children }) {
@@ -18,16 +19,15 @@ export default function Popup({ open, onClose, children }) {
           />
           <motion.div
             className={styles.card}
-            initial={{ opacity: 0, scale: 0.9, y: 12 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 12 }}
-            transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+            initial={{ opacity: 0, scale: 0.92, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0, transition: springMd }}
+            exit={{ opacity: 0, scale: 0.92, y: 12, transition: springMd }}
           >
             {children}
           </motion.div>
         </div>
       )}
     </AnimatePresence>,
-    document.body
+    getPortalRoot()
   );
 }

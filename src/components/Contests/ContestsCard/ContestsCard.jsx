@@ -1,7 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarIcon from '@mui/icons-material/Star';
+import { springSm } from '../../../lib/motionConfig';
 import styles from './ContestsCard.module.css';
 
 function Stars({ value = 0 }) {
@@ -15,26 +15,16 @@ function Stars({ value = 0 }) {
   );
 }
 
-export default function ContestsCard({
-  title,
-  subtitle,
-  participation = 0,
-  win = 0,
-  daysLeft,
-  active = false,
-  onClick,
-}) {
+export default function ContestsCard({ title, subtitle, participation = 0, win = 0, daysLeft, active = false, onClick }) {
   return (
     <motion.article
       className={styles.card}
       initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0, transition: springSm }}
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
-      transition={{ type: 'spring', stiffness: 320, damping: 26, mass: 0.6 }}
       layout
     >
-      {/* Часы как оверлей справа */}
       <div className={styles.timerWrap}>
         <AccessTimeIcon className={styles.timerIcon} />
         <div className={styles.days}>{daysLeft} д.</div>
@@ -49,23 +39,11 @@ export default function ContestsCard({
 
       <div className={styles.rowBottom}>
         <div className={styles.statsCol}>
-          <div className={styles.statRow}>
-            <span className={styles.label}>Участие</span>
-            <Stars value={participation} />
-          </div>
-          <div className={styles.statRow}>
-            <span className={styles.label}>Победа</span>
-            <Stars value={win} />
-          </div>
+          <div className={styles.statRow}><span className={styles.label}>Участие</span><Stars value={participation} /></div>
+          <div className={styles.statRow}><span className={styles.label}>Победа</span><Stars value={win} /></div>
         </div>
 
-        <motion.button
-          type="button"
-          className={`${styles.cta} ${active ? styles.ctaActive : ''}`}
-          onClick={onClick}
-          whileTap={{ scale: 0.97 }}
-          aria-pressed={active}
-        >
+        <motion.button type="button" className={`${styles.cta} ${active ? styles.ctaActive : ''}`} onClick={onClick} whileTap={{ scale: 0.97 }} aria-pressed={active}>
           {active ? 'АКТИВНО' : 'УЧАСТВОВАТЬ'}
         </motion.button>
       </div>

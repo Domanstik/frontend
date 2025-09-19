@@ -1,18 +1,31 @@
-.root { position: fixed; inset: 0; z-index: 1200; pointer-events: auto; }
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  pointer-events: auto;
+}
 .backdrop {
-  position: absolute; inset: 0; border: 0; padding: 0; cursor: default;
-  background: rgba(10, 20, 40, 0.45);
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  cursor: default;
+  background: color-mix(in oklab, black 55%, transparent);
 }
 .card {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  max-width: 280px; width: calc(100% - 48px);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 320px;
+  width: calc(100% - 48px);
   padding: 18px 16px 16px;
   border-radius: 24px;
-  background: #2f2a7e;              /* фирменный тёмно-синий */
+  background: var(--brand-ink);
   color: #fff;
   box-shadow:
     0 16px 36px rgba(16, 33, 80, 0.35),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
   text-align: center;
 }
 .title {
@@ -28,8 +41,11 @@
   border-radius: 999px;
   border: 0;
   background: #fff;
-  color: #2f2a7e;
+  color: var(--brand-ink);
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(15,20,60,0.18);
+  box-shadow: 0 4px 12px rgba(15, 20, 60, 0.18);
+}
+:root[data-theme='dark'] .card {
+  background: color-mix(in oklab, var(--brand-ink) 60%, black);
 }

@@ -1,15 +1,19 @@
-import React from 'react';
-import { List, Box } from '@mui/material';
+import { motion } from 'framer-motion';
+import { listStagger } from '../../../lib/motionConfig';
 import LeaderboardItem from '../LeaderboardItem/LeaderboardItem';
 import styles from './LeaderboardList.module.css';
 
 const ACTIVE_USER_ID = 5;
 
 export default function LeaderboardList({ items = [], onItemClick }) {
-
   return (
-    <Box className={styles.board}>
-      <List disablePadding>
+    <div className={styles.board}>
+      <motion.ul
+        className={styles.list}
+        variants={listStagger}
+        initial="hidden"
+        animate="show"
+      >
         {items.map((user, idx) => {
           const isActive = user.id === ACTIVE_USER_ID;
           return (
@@ -21,10 +25,11 @@ export default function LeaderboardList({ items = [], onItemClick }) {
               avatar={user.avatar}
               active={isActive}
               onClick={() => onItemClick?.(user)}
+              index={idx}
             />
           );
         })}
-      </List>
-    </Box>
+      </motion.ul>
+    </div>
   );
 }
