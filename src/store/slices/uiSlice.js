@@ -1,25 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  theme: 'light', // 'light' | 'dark'
   header: { title: '', avatar: '', right: null },
-  theme: 'auto', // 'auto' | 'light' | 'dark'
+  navHidden: false, // скрыть нижнюю навигацию (для admin/шитов)
 };
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setHeader(state, action) {
-      state.header = { ...state.header, ...action.payload };
+    setTheme(state, { payload }) {
+      state.theme = payload;
     },
-    setTheme(state, action) {
-      state.theme = action.payload;
+    toggleTheme(state) {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
     },
-    applyTheme(state, action) {},
+    setHeader(state, { payload }) {
+      state.header = { ...state.header, ...payload };
+    },
+    resetHeader(state) {
+      state.header = initialState.header;
+    },
+    setNavHidden(state, { payload }) {
+      state.navHidden = !!payload;
+    },
   },
 });
 
-export const { setHeader, setTheme, applyTheme } = uiSlice.actions;
-export const selectHeader = (s) => s.ui.header;
+export const { setTheme, toggleTheme, setHeader, resetHeader, setNavHidden } =
+  uiSlice.actions;
+
 export const selectTheme = (s) => s.ui.theme;
+export const selectHeader = (s) => s.ui.header;
+export const selectNavHidden = (s) => s.ui.navHidden;
+
 export default uiSlice.reducer;

@@ -10,12 +10,13 @@
 
 /* для dashboard — высокий header */
 .app-layout.app-layout--dashboard .app-content {
-  margin-top: 180px; /* высота HeaderDashboard */
+  /* было: margin-top: 180px; */
+  margin-top: var(--header-height-dashboard, 180px);
 }
 
 /* для обычного header */
 .app-layout:not(.app-layout--dashboard) .app-content {
-  margin-top: 5.5rem; /* высота HeaderSimple (fixed) */
+  margin-top: 5.5rem;
 }
 
 .app-content {

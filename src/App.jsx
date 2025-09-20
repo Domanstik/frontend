@@ -1,12 +1,22 @@
-import { RouterProvider, createMemoryRouter, Navigate, Outlet } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectTheme } from './store/slices/uiSlice';
+import React, { Suspense, useEffect } from 'react';
+import {
+  RouterProvider,
+  createMemoryRouter,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+import { selectTheme } from '@store/slices/uiSlice';
+
 import ErrorBoundary from '@components/System/ErrorBoundary';
 import TelegramProvider from './app/TelegramProvider';
-import { UIProvider } from '@contexts/ui-context'; // пока оставим — на переходный период
+import { UIProvider } from '@contexts/ui-context';
 import AppLayout from './AppLayout';
 
+import AppBackground from '@components/System/AppBackground/AppBackground';
+
+// screens (user)
 import Dashboard from '@screens/Dashboard/Dashboard';
 import Store from '@screens/Store/Store';
 import Contests from '@screens/Contests/Contests';
@@ -14,6 +24,7 @@ import Leaderboard from '@screens/Leaderboard/Leaderboard';
 import Notifications from '@screens/Notifications/Notifications';
 import TakeSurvey from '@screens/Surveys/TakeSurvey';
 
+// screens (admin)
 import AdminPanel from '@screens/Admin/AdminPanel';
 import AdminContests from '@screens/Admin/Contests/AdminContests';
 import CreateContest from '@screens/Admin/Contests/CreateContest';
@@ -25,40 +36,49 @@ import AdminMerchForm from '@screens/Admin/Merch/AdminMerchForm';
 import AdminWinners from '@screens/Admin/Winners/AdminWinners';
 import AdminWinnersParticipants from '@screens/Admin/Winners/AdminWinnersParticipants';
 
-function AdminLayout() { return <Outlet />; }
+function AdminLayout() {
+  return <Outlet />;
+}
 
-const router = createMemoryRouter([
-  {
-    path: '/',
-    element: <AppLayout />,
-    children: [
-      { index: true, element: <Navigate to="dashboard" replace /> },
-      { path: 'dashboard', element: <Dashboard /> },
-      { path: 'store', element: <Store /> },
-      { path: 'contests', element: <Contests /> },
-      { path: 'leaderboard', element: <Leaderboard /> },
-      { path: 'notifications', element: <Notifications /> },
-      { path: 'survey/:id', element: <TakeSurvey /> },
-      {
-        path: 'admin',
-        element: <AdminLayout />,
-        children: [
-          { index: true, element: <AdminPanel /> },
-          { path: 'contests', element: <AdminContests /> },
-          { path: 'contests/create', element: <CreateContest /> },
-          { path: 'contests/:id/edit', element: <EditContest /> },
-          { path: 'surveys', element: <AdminSurveys /> },
-          { path: 'surveys/create', element: <CreateSurvey /> },
-          { path: 'merch', element: <AdminMerchList /> },
-          { path: 'merch/new', element: <AdminMerchForm /> },
-          { path: 'merch/:id/edit', element: <AdminMerchForm /> },
-          { path: 'winners', element: <AdminWinners /> },
-          { path: 'winners/:id', element: <AdminWinnersParticipants /> },
-        ],
-      },
-    ],
-  },
-], { initialEntries: ['/dashboard'] });
+const router = createMemoryRouter(
+  [
+    {
+      path: '/',
+      element: <AppLayout />,
+      children: [
+        { index: true, element: <Navigate to="dashboard" replace /> },
+
+        // user routes
+        { path: 'dashboard', element: <Dashboard /> },
+        { path: 'store', element: <Store /> },
+        { path: 'contests', element: <Contests /> },
+        { path: 'leaderboard', element: <Leaderboard /> },
+        { path: 'notifications', element: <Notifications /> },
+        { path: 'survey/:id', element: <TakeSurvey /> },
+
+        // admin routes (nested)
+        {
+          path: 'admin',
+          element: <AdminLayout />,
+          children: [
+            { index: true, element: <AdminPanel /> },
+            { path: 'contests', element: <AdminContests /> },
+            { path: 'contests/create', element: <CreateContest /> },
+            { path: 'contests/:id/edit', element: <EditContest /> },
+            { path: 'surveys', element: <AdminSurveys /> },
+            { path: 'surveys/create', element: <CreateSurvey /> },
+            { path: 'merch', element: <AdminMerchList /> },
+            { path: 'merch/new', element: <AdminMerchForm /> },
+            { path: 'merch/:id/edit', element: <AdminMerchForm /> },
+            { path: 'winners', element: <AdminWinners /> },
+            { path: 'winners/:id', element: <AdminWinnersParticipants /> },
+          ],
+        },
+      ],
+    },
+  ],
+  { initialEntries: ['/dashboard'] }
+);
 
 function ThemeApplier() {
   const theme = useSelector(selectTheme);
@@ -76,11 +96,18 @@ export default function App() {
     <TelegramProvider>
       <UIProvider>
         <ThemeApplier />
-        <ErrorBoundary>
-          <Suspense fallback={null}>
-            <RouterProvider router={router} />
-          </Suspense>
-        </ErrorBoundary>
+
+        {/* Фоновый слой — всегда позади, никогда не перекрывается */}
+        <AppBackground />
+
+        {/* Всё приложение выше фона */}
+        <div className="app-shell">
+          <ErrorBoundary>
+            <Suspense fallback={null}>
+              <RouterProvider router={router} />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
       </UIProvider>
     </TelegramProvider>
   );

@@ -6,16 +6,28 @@ import styles from './ContestsList.module.css';
 
 export default function ContestsList({ items = [], onOpenContest }) {
   const navigate = useNavigate();
-  const handleClick = (it) => it.kind === 'survey' ? navigate(`/survey/${it.id}`, { state: it }) : onOpenContest?.(it);
+  const handleClick = (it) =>
+    it.kind === 'survey'
+      ? navigate(`/survey/${it.id}`, { state: it })
+      : onOpenContest?.(it);
 
   return (
     <div className={styles.wrap}>
-      <motion.div className={styles.stack} variants={listStagger} initial="hidden" animate="show">
+      <motion.div
+        className={styles.stack}
+        variants={listStagger}
+        initial="hidden"
+        animate="show"
+      >
         {items.map((it) => (
-          <motion.div key={it.id} variants={fadeInUp}>
+          <motion.div key={it.id} variants={fadeInUp} className={styles.item}>
             <ContestsCard
-              title={it.title} subtitle={it.subtitle} participation={it.participation}
-              win={it.win} daysLeft={it.daysLeft} onClick={() => handleClick(it)}
+              title={it.title}
+              subtitle={it.subtitle}
+              participation={it.participation}
+              win={it.win}
+              daysLeft={it.daysLeft}
+              onClick={() => handleClick(it)}
             />
           </motion.div>
         ))}

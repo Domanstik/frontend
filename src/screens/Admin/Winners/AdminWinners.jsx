@@ -19,7 +19,7 @@ export default function AdminWinners() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <button className={styles.back} onClick={() => navigate(-1)}>
+        <button className={styles.back} onClick={() => navigate(-1)} aria-label="Назад">
           <ArrowBackIosNewRoundedIcon />
         </button>
         <div className={styles.hTitle}>Победители</div>

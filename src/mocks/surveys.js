@@ -1,6 +1,5 @@
 export const SURVEYS = {
   s1: {
-    id: 's1',
     title: 'ТЕКУЩИЕ ЗАДАНИЯ',
     rewardPerQuestion: 1,
     questions: [

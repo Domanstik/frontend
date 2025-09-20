@@ -7,7 +7,7 @@ import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 
 import { useDispatch } from 'react-redux';
-import { setHeader } from '@/store/slices/uiSlice';
+import { setHeader } from '@store/slices/uiSlice';
 import Popup from '@components/UI/Popup/Popup';
 import { adminParticipants as rowsInit } from '@/mocks/admin';
 import styles from './AdminWinnersParticipants.module.css';

@@ -1,29 +1,22 @@
 .page {
+  /* фон страницы НЕ задаём — используем глобальный фон приложения */
   min-height: 100dvh;
-  background:
-    radial-gradient(
-      220px 160px at 50% 92%,
-      var(--admin-bubble),
-      rgba(255, 255, 255, 0) 60%
-    ),
-    linear-gradient(180deg, var(--admin-grad-start) 0%, var(--admin-grad-end) 100%);
   position: relative;
+  /* чтобы локальные псевдоэлементы/тени не перекрывали глобальный фон */
+  background: transparent;
 }
-.page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(white 1px, transparent 1px) 0 0/180px 180px,
-    radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px) 60px 60px/120px 120px;
-  opacity: 0.35;
-  pointer-events: none;
-}
+
+/* УДАЛЕНО: был overlay со «снегом», который лежал поверх фона */
+/*
+.page::before { ... }
+*/
+
 .container {
   max-width: 640px;
   margin: 0 auto;
   padding: 8px 12px 16px;
 }
+
 .list {
   list-style: none;
   padding: 12px 0 0;
@@ -31,6 +24,7 @@
   display: grid;
   gap: 10px;
 }
+
 .item {
   position: relative;
 }
@@ -43,11 +37,14 @@
   text-decoration: none;
   padding: 10px 6px;
   color: var(--brand-ink);
+  background: transparent;
 }
+
 .leftIcon :global(svg) {
   color: var(--brand-ink);
   opacity: 0.9;
 }
+
 .title {
   font-size: 18px;
   font-weight: 600;

@@ -1,0 +1,36 @@
+/* Тёмная/светлая тема через data-theme на <html> */
+/* light по умолчанию */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* базовые токены темы */
+  --color-text: #0b2a5a;
+  --color-text-muted: rgba(11, 42, 90, 0.75);
+  --surface-1: rgba(255, 255, 255, 0.85);
+  --glass: rgba(255, 255, 255, 0.35);
+  --brand-ink: #2f2a7e;
+  --brand-accent: #ffcc35;
+  --shadow-1: 0 6px 18px rgba(33, 59, 128, 0.16);
+}
+
+/* dark overrides */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-text: #e6e9f5;
+  --color-text-muted: rgba(230, 233, 245, 0.75);
+  --surface-1: rgba(255, 255, 255, 0.10);
+  --glass: rgba(255, 255, 255, 0.15);
+  --brand-ink: #24235f;
+  --brand-accent: #ffcc35;
+  --shadow-1: 0 10px 26px rgba(0, 0, 0, 0.40);
+}
+
+/* фон страницы через переменную, которую ставим в main.jsx */
+html {
+  background-image: var(--app-bg-image);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

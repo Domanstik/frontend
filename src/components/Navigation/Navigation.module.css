@@ -1,0 +1,123 @@
+.nav {
+  --nav-h: 6rem;
+
+  /* размер «солнца» */
+  --halo-size: calc(var(--nav-h) * 1.8);
+
+  /* СМЕЩЕНИЕ: ещё левее и чуть выше */
+  --halo-shift-x: -55px;
+  --halo-shift-y: -2px;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: var(--nav-h);
+  padding-bottom: 8px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.navButton {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.iconWrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  line-height: 0;
+}
+
+.haloBox {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.haloBox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--halo-size);
+  height: var(--halo-size);
+  border-radius: 50%;
+  transform: translate(var(--halo-shift-x), var(--halo-shift-y));
+  background: radial-gradient(
+    36% 36% at 50% 50%,
+    rgba(255, 195, 31, 0.82) 0%,
+    rgba(255, 195, 31, 0.28) 36%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+  filter: blur(0.6px);
+  z-index: -1;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  filter: grayscale(100%) opacity(0.8);
+  transition:
+    transform 0.22s,
+    filter 0.22s;
+}
+.iconImg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.iconSvg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconSvg svg {
+  width: 28px;
+  height: 28px;
+  color: #0b2a5a;
+  opacity: 0.9;
+}
+
+.navButton.active .icon {
+  filter: none;
+}
+
+@media (max-width: 360px) {
+  .iconWrap {
+    width: 52px;
+    height: 52px;
+  }
+  .iconImg,
+  .iconSvg svg {
+    width: 26px;
+    height: 26px;
+  }
+  .nav {
+    --halo-size: calc(var(--nav-h) * 1.7);
+    --halo-shift-x: -18px;
+    --halo-shift-y: -1px;
+    z-index: -1;
+  }
+}

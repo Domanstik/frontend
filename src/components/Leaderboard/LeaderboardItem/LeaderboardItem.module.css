@@ -1,11 +1,18 @@
 :root {
   --ink: #15224b;
   --muted: rgba(255, 255, 255, 0.8);
+
   --gold: #ffb300;
   --silver: #c0c6d9;
   --bronze: #cc884a;
+
+  /* фиксированные размеры — больше не сжимаются */
+  --avatar-size: 40px;
+  --star-size: 56px;
+
   --rowMinH: 64px;
 }
+
 .item {
   min-height: var(--rowMinH);
   color: #fff;
@@ -15,10 +22,12 @@
     rgba(255, 255, 255, 0.3) 100%
   );
 }
+
 .active {
   min-height: 84px;
   background: rgba(255, 255, 255, 0.5);
 }
+
 .button {
   display: flex;
   align-items: center;
@@ -29,19 +38,28 @@
   background: transparent;
   cursor: pointer;
 }
+
+/* номер не сжимается */
 .rank {
+  flex: 0 0 auto;
   font-weight: 800;
   font-size: 24px;
   color: #0e1c5f;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
+
+/* аватар фикс. размера и не сжимать */
 .avatar {
-  width: 36px;
-  height: 36px;
+  flex: 0 0 var(--avatar-size);
+  width: var(--avatar-size);
+  height: var(--avatar-size);
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6) inset;
+  object-fit: cover;
+  display: block;
 }
+
 .top1 {
   box-shadow:
     0 0 0 2px var(--gold) inset,
@@ -57,10 +75,12 @@
     0 0 0 2px var(--bronze) inset,
     0 0 0 4px rgb(204, 136, 74);
 }
+
 .nameWrap {
   flex: 1 1 auto;
   min-width: 0;
 }
+
 .name {
   line-height: 1.2;
   color: var(--muted);
@@ -70,16 +90,23 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* разделитель */
 .divider {
   height: 2px;
   background: #fff;
 }
+
+/* звезда — фикс. ширина, не сжимать */
 .star {
-  margin-left: auto;
+  flex: 0 0 var(--star-size);
+  width: var(--star-size);
+  height: var(--star-size);
   position: relative;
-  width: 56px;
-  height: 56px;
+  margin-left: auto;
+  contain: layout paint style; /* анимации без влияния на лэйаут */
 }
+
 .starSvg {
   width: 100%;
   height: 100%;
@@ -87,6 +114,7 @@
   fill: var(--star, #ffcc35);
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
 }
+
 .starValue {
   position: absolute;
   inset: 0;

@@ -3,41 +3,73 @@
   top: 0;
   left: 0;
   z-index: 10;
+
   width: 100vw;
-  height: var(--header-height-dashboard, 180px);
+  height: var(--header-height-dashboard, 188px);
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   overflow: hidden;
   pointer-events: none;
 }
+
+/* Подложка-заливка как на макете (непрозрачная) */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+
+  /* базовая заливка */
+  background:
+    radial-gradient(
+      220px 160px at 50% 8%,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #5a76b8 0%, #90a8d6 100%);
+}
+
+/* иллюстрация (аватар) у нижнего края */
 .bgImg {
   position: absolute;
-  top: 0;
+  bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
-  height: 100%;
+  height: 120%; /* крупнее, чтобы «въезжала» снизу */
   width: auto;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
   pointer-events: none;
+  filter: drop-shadow(0 6px 18px rgba(10, 26, 92, 0.25));
 }
+
+/* «снежинки» + мягкий свет */
 .overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-    120% 100% at 50% 0%,
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(255, 255, 255, 0.7) 100%
-  );
+  background:
+    radial-gradient(white 1px, transparent 1px) 0 0/180px 180px,
+    radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px) 60px 60px/120px 120px,
+    radial-gradient(
+      120% 100% at 50% 0%,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
 }
+
+/* панель действий */
 .actions {
   position: absolute;
   top: calc(8px + env(safe-area-inset-top, 0px));
   right: 12px;
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
   pointer-events: auto;
 }
+
 .iconButton {
   color: var(--brand-ink);
   background: rgba(255, 255, 255, 0.85);
@@ -49,19 +81,35 @@
   place-items: center;
   cursor: pointer;
 }
+
+/* нижняя тень карточки */
 .header::after {
   content: '';
   position: absolute;
   inset: 0;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
-  box-shadow: 0 8px 20px rgba(10, 26, 92, 0.15);
+  box-shadow: 0 8px 20px rgba(10, 26, 92, 0.18);
   pointer-events: none;
 }
+
+/* тёмная тема — чуть менее светлый верх */
+:root[data-theme='dark'] .header::before {
+  background:
+    radial-gradient(
+      220px 160px at 50% 8%,
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #3f4f84 0%, #6b84bc 100%);
+}
 :root[data-theme='dark'] .overlay {
-  background: radial-gradient(
-    120% 100% at 50% 0%,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
+  background:
+    radial-gradient(white 1px, transparent 1px) 0 0/180px 180px,
+    radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px) 60px 60px/120px 120px,
+    radial-gradient(
+      120% 100% at 50% 0%,
+      rgba(0, 0, 0, 0.12) 0%,
+      rgba(0, 0, 0, 0.28) 100%
+    );
 }

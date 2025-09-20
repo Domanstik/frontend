@@ -1,23 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const slice = createSlice({
+const initialState = {
+  items: [], // [{id,title,price,description,image,liked}]
+};
+
+const merchSlice = createSlice({
   name: 'merch',
-  initialState: { items: [] },
+  initialState,
   reducers: {
-    setMerch(state, action) {
-      state.items = action.payload || [];
+    setMerch(state, { payload }) {
+      state.items = Array.isArray(payload) ? payload : [];
     },
-    upsertMerch(state, action) {
-      const item = action.payload;
-      const i = state.items.findIndex((x) => x.id === item.id);
-      if (i >= 0) state.items[i] = item;
-      else state.items.push(item);
+    addMerch(state, { payload }) {
+      state.items.unshift(payload);
     },
-    removeMerch(state, action) {
-      state.items = state.items.filter((x) => x.id !== action.payload);
+    updateMerch(state, { payload }) {
+      if (!payload?.id) return;
+      state.items = state.items.map((it) =>
+        it.id === payload.id ? { ...it, ...payload } : it,
+      );
+    },
+    removeMerch(state, { payload: id }) {
+      state.items = state.items.filter((it) => it.id !== id);
     },
   },
 });
-export const { setMerch, upsertMerch, removeMerch } = slice.actions;
+
+export const { setMerch, addMerch, updateMerch, removeMerch } = merchSlice.actions;
+
 export const selectMerch = (s) => s.merch.items;
-export default slice.reducer;
+
+export default merchSlice.reducer;
