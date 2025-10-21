@@ -1,22 +1,11 @@
-/* Фиксированный фон на весь вьюпорт */
-.app-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  /* картинка приходит из main.jsx: documentElement.style.setProperty('--app-bg-image', `url(...)`) */
-  background-image: var(--app-bg-image, none);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* чтобы фон не «ездил» при прокрутке */
-  background-attachment: fixed;
-
-  /* фолбэк-цвет, если картинка не прогрузилась */
+.app-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;                 /* главное: не перехватывать клики */
   background-color: var(--app-bg-color, #eaf0ff);
 }
+
 
 /* Всё приложение поднимаем над фоном единым стеком */
 .app-shell {

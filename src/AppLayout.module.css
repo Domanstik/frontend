@@ -2,21 +2,30 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-height: 100dvh;
+  /* было overflow:hidden; — из-за него и трансформов Framer фиксированный таббар мог
+     попадать в стек родителя и обрезаться */
+  overflow: visible;
   background: transparent;
-  overflow: hidden;
+  z-index: 1; /* выше фонового слоя */
 }
 
 .appContent {
-  flex: 1;
+  flex: 1 1 auto;
   box-sizing: border-box;
   width: 100%;
+  /* чтобы контент не заходил под таббар */
+  padding-bottom: var(--nav-height, 5rem);
+  margin-bottom: 0;
   overflow-y: auto;
-  margin-top: var(--header-height-simple);
-  margin-bottom: var(--nav-height);
 }
 
+/* для dashboard — высокий header */
 .appContentDashboard {
-  margin-top: var(--header-height-dashboard);
+  margin-top: var(--header-height-dashboard, 180px);
+}
+
+/* для обычных экранов */
+:global(.app-layout--simple) .appContent {
+  margin-top: var(--header-height-simple, 5.5rem);
 }

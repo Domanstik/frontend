@@ -72,7 +72,6 @@ export default function Navigation() {
               <AnimatePresence initial={false}>
                 {isActive && <motion.span layoutId="navHalo" className={styles.haloBox} />}
               </AnimatePresence>
-
               <RenderIcon icon={icon} label={label} isActive={isActive} />
             </span>
           )}

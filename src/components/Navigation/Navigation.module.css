@@ -1,12 +1,11 @@
 .nav {
   --nav-h: 6rem;
 
-  /* размер «солнца» */
-  --halo-size: calc(var(--nav-h) * 1.8);
-
-  /* СМЕЩЕНИЕ: ещё левее и чуть выше */
-  --halo-shift-x: -55px;
-  --halo-shift-y: -2px;
+  /* размер свечения */
+  --halo-size: calc(var(--nav-h) * 2.1);
+  /* тонкая юстировка (по умолчанию центр) */
+  --halo-dx: 0px;
+  --halo-dy: -2px;
 
   position: fixed;
   left: 0;
@@ -20,8 +19,11 @@
   justify-content: space-around;
   align-items: center;
   height: var(--nav-h);
-  padding-bottom: 8px;
-  z-index: 100;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+
+  z-index: 10000;
+  isolation: isolate;
+  pointer-events: auto;
   overflow: hidden;
 }
 
@@ -36,6 +38,8 @@
   font-size: 0;
   position: relative;
   z-index: 1;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .iconWrap {
@@ -55,20 +59,22 @@
   z-index: 0;
   pointer-events: none;
 }
+
+/* ЦЕНТРУЕМ ореол на иконке */
 .haloBox::before {
   content: '';
   position: absolute;
-  inset: 0;
-  margin: auto;
+  top: 50%;
+  left: 50%;
   width: var(--halo-size);
   height: var(--halo-size);
   border-radius: 50%;
-  transform: translate(var(--halo-shift-x), var(--halo-shift-y));
+  transform: translate(calc(-50% + var(--halo-dx)), calc(-50% + var(--halo-dy)));
   background: radial-gradient(
     36% 36% at 50% 50%,
     rgba(255, 195, 31, 0.82) 0%,
     rgba(255, 195, 31, 0.28) 36%,
-    rgba(255, 255, 255, 0.0) 100%
+    rgba(255, 255, 255, 0) 100%
   );
   filter: blur(0.6px);
   z-index: -1;
@@ -104,6 +110,7 @@
   filter: none;
 }
 
+/* компактный режим без смещений */
 @media (max-width: 360px) {
   .iconWrap {
     width: 52px;
@@ -115,9 +122,7 @@
     height: 26px;
   }
   .nav {
-    --halo-size: calc(var(--nav-h) * 1.7);
-    --halo-shift-x: -18px;
-    --halo-shift-y: -1px;
-    z-index: -1;
+    --halo-size: calc(var(--nav-h) * 1.9);
+    z-index: 10000;
   }
 }
