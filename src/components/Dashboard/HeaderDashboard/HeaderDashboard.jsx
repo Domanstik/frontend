@@ -1,19 +1,29 @@
 import { motion } from 'framer-motion';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useSelector } from 'react-redux';
+import { selectTheme } from '@/store/slices/uiSlice';
+
+import notifLight from '@icons/navigation/notifications-light.svg';
+import notifDark from '@icons/navigation/notifications-dark.svg';
+import themeLight from '@icons/navigation/light-sheme-light.svg';
+import themeDark from '@icons/navigation/light-sheme-dark.svg';
+
 import { springSm } from '@lib/motionConfig';
 import styles from './HeaderDashboard.module.css';
 
 export default function HeaderDashboard({ avatarSrc, onNotify, onToggleTheme }) {
+  const theme = useSelector(selectTheme);
+  const isDark = theme === 'dark';
+
+  const notifIcon = isDark ? notifDark : notifLight;
+  const themeIcon = isDark ? themeDark : themeLight;
+
   return (
     <motion.header
       className={styles.header}
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0, transition: springSm }}
     >
-      {/* фон-заливка (градиент) уже в CSS через ::before */}
-
-      {/* крупная «фото»-иллюстрация внизу шапки */}
+      {/* крупная иллюстрация/аватар */}
       {avatarSrc && (
         <motion.img
           src={avatarSrc}
@@ -24,7 +34,7 @@ export default function HeaderDashboard({ avatarSrc, onNotify, onToggleTheme }) 
         />
       )}
 
-      {/* снежинки + мягкий свет сверху */}
+      {/* снежинки + мягкий свет */}
       <span className={styles.overlay} aria-hidden />
 
       {/* кнопки */}
@@ -36,7 +46,7 @@ export default function HeaderDashboard({ avatarSrc, onNotify, onToggleTheme }) 
           whileTap={{ scale: 0.95 }}
           aria-label="Открыть уведомления"
         >
-          <NotificationsIcon />
+          <img src={notifIcon} alt="" />
         </motion.button>
 
         <motion.button
@@ -46,7 +56,7 @@ export default function HeaderDashboard({ avatarSrc, onNotify, onToggleTheme }) 
           whileTap={{ scale: 0.95 }}
           aria-label="Переключить тему"
         >
-          <DarkModeIcon />
+          <img src={themeIcon} alt="" />
         </motion.button>
       </div>
     </motion.header>
@@ -55,6 +65,6 @@ export default function HeaderDashboard({ avatarSrc, onNotify, onToggleTheme }) 
 
 HeaderDashboard.defaultProps = {
   avatarSrc: '',
-  onNotify: () => { },
-  onToggleTheme: () => { },
+  onNotify: () => {},
+  onToggleTheme: () => {},
 };

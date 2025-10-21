@@ -1,17 +1,16 @@
 .nav {
   --nav-h: 6rem;
 
-  /* размер свечения */
+  /* glow size */
   --halo-size: calc(var(--nav-h) * 2.1);
-  /* тонкая юстировка (по умолчанию центр) */
-  --halo-dx: 0px;
   --halo-dy: -2px;
+  --halo-dx: 0px;
 
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fff;
+  background: var(--nav-bg);
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
@@ -59,8 +58,6 @@
   z-index: 0;
   pointer-events: none;
 }
-
-/* ЦЕНТРУЕМ ореол на иконке */
 .haloBox::before {
   content: '';
   position: absolute;
@@ -84,45 +81,22 @@
   position: relative;
   z-index: 1;
   filter: grayscale(100%) opacity(0.8);
-  transition:
-    transform 0.22s,
-    filter 0.22s;
+  transition: transform 0.22s, filter 0.22s;
 }
-.iconImg {
-  width: 28px;
-  height: 28px;
-  display: block;
-}
+.iconImg { width: 28px; height: 28px; display: block; }
+.iconSvg { display: inline-flex; align-items: center; justify-content: center; }
+.iconSvg svg { width: 28px; height: 28px; color: #0b2a5a; opacity: 0.9; }
 
-.iconSvg {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.iconSvg svg {
-  width: 28px;
-  height: 28px;
-  color: #0b2a5a;
-  opacity: 0.9;
-}
+.navButton.active .icon { filter: none; }
 
-.navButton.active .icon {
-  filter: none;
-}
-
-/* компактный режим без смещений */
+/* COMPACT */
 @media (max-width: 360px) {
-  .iconWrap {
-    width: 52px;
-    height: 52px;
-  }
-  .iconImg,
-  .iconSvg svg {
-    width: 26px;
-    height: 26px;
-  }
-  .nav {
-    --halo-size: calc(var(--nav-h) * 1.9);
-    z-index: 10000;
-  }
+  .iconWrap { width: 52px; height: 52px; }
+  .iconImg, .iconSvg svg { width: 26px; height: 26px; }
+  .nav { --halo-size: calc(var(--nav-h) * 1.9); z-index: 10000; }
 }
+
+/* DARK THEME: white icons + dark nav background */
+:root[data-theme='dark'] .nav { background: var(--nav-bg); }
+:root[data-theme='dark'] .iconSvg svg { color: #ffffff; opacity: 1; }
+:root[data-theme='dark'] .iconImg { filter: brightness(0) invert(1) saturate(0) !important; }

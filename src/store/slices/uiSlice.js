@@ -1,38 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const THEME_KEY = 'app_theme';
+
+function readTheme() {
+  try {
+    const t = localStorage.getItem(THEME_KEY);
+    return t === 'dark' || t === 'light' ? t : 'light';
+  } catch {
+    return 'light';
+  }
+}
+function saveTheme(t) {
+  try {
+    localStorage.setItem(THEME_KEY, t);
+  } catch {
+    /* noop */
+  }
+}
+
 const initialState = {
-  theme: 'light', // 'light' | 'dark'
-  header: { title: '', avatar: '', right: null },
-  navHidden: false, // скрыть нижнюю навигацию (для admin/шитов)
+  header: {
+    title: '',
+    avatar: '',
+    right: null,
+  },
+  theme: readTheme(), // 'light' | 'dark'
 };
 
-const uiSlice = createSlice({
+const slice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setTheme(state, { payload }) {
-      state.theme = payload;
-    },
-    toggleTheme(state) {
-      state.theme = state.theme === 'light' ? 'dark' : 'light';
-    },
     setHeader(state, { payload }) {
       state.header = { ...state.header, ...payload };
     },
-    resetHeader(state) {
-      state.header = initialState.header;
+    setTheme(state, { payload }) {
+      if (payload === 'light' || payload === 'dark') {
+        state.theme = payload;
+        saveTheme(state.theme);
+      }
     },
-    setNavHidden(state, { payload }) {
-      state.navHidden = !!payload;
+    toggleTheme(state) {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      saveTheme(state.theme);
     },
   },
 });
 
-export const { setTheme, toggleTheme, setHeader, resetHeader, setNavHidden } =
-  uiSlice.actions;
+export const { setHeader, setTheme, toggleTheme } = slice.actions;
 
-export const selectTheme = (s) => s.ui.theme;
 export const selectHeader = (s) => s.ui.header;
-export const selectNavHidden = (s) => s.ui.navHidden;
+export const selectTheme = (s) => s.ui.theme;
 
-export default uiSlice.reducer;
+export default slice.reducer;

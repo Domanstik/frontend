@@ -5,10 +5,7 @@
   padding-top: var(--s-200);
 }
 
-/* отступ под «крышку»-хедер, чтобы ничего не перекрывалось */
-.headerSpacer {
-  height: var(--header-height-dashboard, 180px);
-}
+.headerSpacer { height: var(--header-height-dashboard, 180px); }
 
 .name {
   color: var(--color-text);
@@ -45,12 +42,17 @@
 }
 
 .actions { margin-top: 6px; }
-.link {
-  color: var(--color-text);
-  text-decoration: none;
-  font-size: 1rem;
-}
+.link { color: var(--color-text); text-decoration: none; font-size: 1rem; }
 
 .hiddenAvatarPreload {
   width: 0; height: 0; opacity: 0; pointer-events: none; position: absolute;
+}
+
+/* DARK THEME: solid #1F1F1F fill + WHITE border, counter text white */
+:root[data-theme='dark'] .card {
+  background-color: var(--dark-card-surface);
+  border: 1.5px solid #ffffff;
+}
+:root[data-theme='dark'] .counter {
+  color: #ffffff;
 }

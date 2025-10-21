@@ -1,9 +1,13 @@
 .app-bg{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;                 /* главное: не перехватывать клики */
-  background-color: var(--app-bg-color, #eaf0ff);
+  position: fixed;
+  inset: 0;
+  z-index: 0;            /* было -1/или мало — поднимаем */
+  pointer-events: none;  /* клики проходят к UI */
+  background-image: var(--app-bg-image);
+  background-repeat: no-repeat;
+  background-size: cover;       /* всегда заполняет */
+  background-position: center top;
+  background-attachment: fixed; /* параллакс как в макете */
 }
 
 

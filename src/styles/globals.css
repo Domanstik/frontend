@@ -1,58 +1,58 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* Inter (variable) */
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-VariableFont_opsz,wght.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
-html,
-body,
-#root {
-  height: 100dvh;
-  min-height: 100dvh;
-}
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-figure {
-  margin: 0;
-}
-img,
-svg,
-video,
-canvas {
-  display: block;
-  max-width: 100%;
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-Italic-VariableFont_opsz,wght.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
 }
 
+/* reset */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html, body, #root { height: 100dvh; min-height: 100dvh; }
+body, h1, h2, h3, h4, h5, h6, p, figure { margin: 0; }
+img, svg, video, canvas { display: block; max-width: 100%; }
+
+/* text presets */
+.text-regular { font-weight: 400; }
+.text-medium  { font-weight: 500; }
+.text-semibold{ font-weight: 600; }
+.text-bold    { font-weight: 700; }
+
+/* theme tokens (light by default) */
 :root {
   /* base */
-  --color-bg: var(--tg-theme-bg-color, #f7f7f7);
+  --color-bg: #eef3ff;
   --color-surface: #ffffff;
-  --color-text: var(--tg-theme-text-color, #0b0b0b);
+  --color-text: #0e1c5f;
   --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
 
   /* brand */
   --brand: #2f2a7e;
-  --brand-ink: #1b2252;
+  --brand-ink: #0a1a5c;
   --accent: #7b61ff;
 
-  /* state */
-  --primary: var(--tg-theme-button-color, #2563eb);
-  --on-primary: var(--tg-theme-button-text-color, #ffffff);
+  /* states */
+  --primary: #2563eb;
+  --on-primary: #ffffff;
 
-  /* radius / shadow / spacing */
+  /* radii / shadow / spacing */
   --radius-8: 8px;
   --radius-10: 10px;
   --radius-12: 12px;
   --radius-16: 16px;
   --radius-22: 22px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md:
-    0 6px 18px rgba(33, 59, 128, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --shadow-md: 0 6px 18px rgba(33, 59, 128, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   --s-50: 0.25rem;
   --s-100: 0.5rem;
   --s-150: 0.75rem;
@@ -63,67 +63,69 @@ canvas {
   /* layout */
   --header-height-simple: 5.5rem;
   --header-height-dashboard: 180px;
-  --nav-height: 5rem;
-
-  /* gradients (admin) */
-  --admin-grad-start: #5a76b8;
-  --admin-grad-end: #90a8d6;
-  --admin-bubble: rgba(255, 230, 190, 0.55);
+  --nav-height: 6rem;
 
   /* dashboard */
-  --star: #f3c419;
+  --star: #ffcc35;
+
+  /* backgrounds */
+  --app-bg-image: url('/src/assets/images/background_day.svg');
+  --app-bg-color: #e9edf7;
+
+  /* navigation/header dark-use tokens (also used in light as defaults) */
+  --nav-bg: #ffffff;
+  --dark-header: #1C1C1E;
+  --dark-card-surface: #1F1F1F;
 
   color-scheme: light;
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Inter,
-    Avenir,
-    Helvetica,
-    Arial,
-    sans-serif;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.5;
-
-  --app-bg-image: none;
 }
 
+/* app background layer (always stretched) */
 html {
   background-image: var(--app-bg-image);
+  background-color: var(--app-bg-color);
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-attachment: fixed;
 }
 
 body {
-  background: var(--color-bg);
+  background: transparent;
   color: var(--color-text);
   font-size: 1rem;
   line-height: 1.4;
 }
 
-/* Dark theme toggle: document.documentElement.dataset.theme='dark' */
+/* DARK THEME OVERRIDES */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-bg: #0e1222;
-  --color-surface: #151a2e;
-  --color-text: #f2f3f7;
-  --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
-  --brand: #6d6aff;
-  --brand-ink: #cfd6ff;
 
-  --admin-grad-start: #2a3c6e;
-  --admin-grad-end: #4d6096;
-  --admin-bubble: rgba(195, 170, 255, 0.4);
+  --color-bg: #0b0f1e;
+  --color-surface: #121730;
+  --color-text: #e8ebff;
+  --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
+
+  --brand: #6d6aff;
+  --brand-ink: #dbe2ff;
 
   --star: #ffd34d;
+
+  /* night background */
+  --app-bg-image: url('/src/assets/images/background_night.svg');
+  --app-bg-color: #0b0f1e;
+
+  /* navigation color */
+  --nav-bg: #1C1C1E;
 }
 
-.app-shell {
-  position: relative;
-  z-index: 1;      /* выше AppBackground */
-  min-height: 100dvh;
-  display: contents; /* не ломать твой layout, но сохранить z-index-контекст */
+/* utility for white-on-dark SVGs (images) */
+:root[data-theme='dark'] .ui-invert-on-dark {
+  filter: brightness(0) invert(1) saturate(0) !important;
 }
+
+/* ensure page sections use theme colors too */
+html, body { background: var(--color-bg); color: var(--color-text); }
