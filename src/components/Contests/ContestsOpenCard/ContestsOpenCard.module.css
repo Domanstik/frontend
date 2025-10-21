@@ -18,15 +18,20 @@
   margin: 0 auto;
   margin-top: calc(var(--app-header-h) + 10px);
   height: calc(100dvh - (var(--app-header-h) + 10px));
-  border-radius: 22px;
+
+  /* было: border-radius: 22px; */
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 
   background: var(--card-bg, rgba(31,31,31,.5));
   border: 1px solid var(--card-border, rgba(255,255,255,.9));
   color: var(--card-ink, #ffffff);
 
-  overflow: hidden; /* важно: обрежет blur по радиусу */
-  /* blur убрали отсюда тоже */
+  overflow: hidden; /* оставляем, чтобы блюр внутри не «вылезал» */
 }
+
 
 /* ===== ВНУТРЕННИЙ blur только в .inner ===== */
 .inner {
