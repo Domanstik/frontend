@@ -1,16 +1,51 @@
-/* Inter (variable) */
+/* ===== Inter (локальные OTF), без variable WOFF2 ===== */
 @font-face {
   font-family: 'Inter';
-  src: url('/src/assets/fonts/Inter-VariableFont_opsz,wght.woff2') format('woff2-variations');
-  font-weight: 100 900;
+  src: url('/src/assets/fonts/Inter-Thin.otf') format('opentype');
+  font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Inter';
-  src: url('/src/assets/fonts/Inter-Italic-VariableFont_opsz,wght.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-style: italic;
+  src: url('/src/assets/fonts/Inter-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -22,60 +57,65 @@ html, body, #root { height: 100dvh; min-height: 100dvh; }
 body, h1, h2, h3, h4, h5, h6, p, figure { margin: 0; }
 img, svg, video, canvas { display: block; max-width: 100%; }
 
-/* text presets */
+/* текстовые пресеты */
 .text-regular { font-weight: 400; }
 .text-medium  { font-weight: 500; }
 .text-semibold{ font-weight: 600; }
 .text-bold    { font-weight: 700; }
 
-/* theme tokens (light by default) */
+/* LIGHT по умолчанию */
 :root {
-  /* base */
   --color-bg: #eef3ff;
   --color-surface: #ffffff;
   --color-text: #0e1c5f;
   --color-muted: color-mix(in oklab, var(--color-text) 60%, transparent);
 
-  /* brand */
   --brand: #2f2a7e;
   --brand-ink: #0a1a5c;
   --accent: #7b61ff;
 
-  /* states */
   --primary: #2563eb;
   --on-primary: #ffffff;
 
-  /* radii / shadow / spacing */
   --radius-8: 8px;
   --radius-10: 10px;
   --radius-12: 12px;
   --radius-16: 16px;
   --radius-22: 22px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 6px 18px rgba(33, 59, 128, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  --s-50: 0.25rem;
-  --s-100: 0.5rem;
-  --s-150: 0.75rem;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 6px 18px rgba(33,59,128,.16), inset 0 1px 0 rgba(255,255,255,.25);
+  --s-50: .25rem;
+  --s-100: .5rem;
+  --s-150: .75rem;
   --s-200: 1rem;
   --s-300: 1.5rem;
   --s-400: 2rem;
 
-  /* layout */
   --header-height-simple: 5.5rem;
   --header-height-dashboard: 180px;
   --nav-height: 6rem;
 
-  /* dashboard */
   --star: #ffcc35;
 
-  /* backgrounds */
   --app-bg-image: url('/src/assets/images/background_day.svg');
   --app-bg-color: #e9edf7;
 
-  /* navigation/header dark-use tokens (also used in light as defaults) */
   --nav-bg: #ffffff;
   --dark-header: #1C1C1E;
   --dark-card-surface: #1F1F1F;
+
+  /* Лидеры (общие токены) */
+  --lb-divider: #ffffff;
+  --lb-star-ink: #111569;
+  --lb-row-bg: rgba(31,31,31,.0);
+
+  /* Конкурсы / Store — карточка по референсу */
+  --card-bg: rgba(31,31,31,.5);  /* 1F1F1F @ 50% */
+  --card-border: rgba(255,255,255,.9);
+  --card-ink: #ffffff;
+  --card-ink-muted: rgba(255,255,255,.8);
+  --card-outline: rgba(255,255,255,.9);
+  --card-clock-ink: rgba(255,255,255,.85);
 
   color-scheme: light;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Avenir, Helvetica, Arial, sans-serif;
@@ -83,7 +123,7 @@ img, svg, video, canvas { display: block; max-width: 100%; }
   line-height: 1.5;
 }
 
-/* app background layer (always stretched) */
+/* фон приложения */
 html {
   background-image: var(--app-bg-image);
   background-color: var(--app-bg-color);
@@ -93,14 +133,9 @@ html {
   background-attachment: fixed;
 }
 
-body {
-  background: transparent;
-  color: var(--color-text);
-  font-size: 1rem;
-  line-height: 1.4;
-}
+body { background: transparent; color: var(--color-text); font-size: 1rem; line-height: 1.4; }
 
-/* DARK THEME OVERRIDES */
+/* DARK */
 :root[data-theme='dark'] {
   color-scheme: dark;
 
@@ -114,18 +149,28 @@ body {
 
   --star: #ffd34d;
 
-  /* night background */
   --app-bg-image: url('/src/assets/images/background_night.svg');
   --app-bg-color: #0b0f1e;
 
-  /* navigation color */
   --nav-bg: #1C1C1E;
+
+  --lb-divider: #ffffff;
+  --lb-star-ink: #111569;
+  --lb-row-bg: rgba(31,31,31,.5);
+
+  /* карточка конкурсов — те же цвета (белая типографика и бордер) */
+  --card-bg: rgba(31,31,31,.5);
+  --card-border: rgba(255,255,255,.9);
+  --card-ink: #ffffff;
+  --card-ink-muted: rgba(255,255,255,.8);
+  --card-outline: rgba(255,255,255,.9);
+  --card-clock-ink: rgba(255,255,255,.85);
 }
 
-/* utility for white-on-dark SVGs (images) */
+/* инверт png/svg на дарке при необходимости */
 :root[data-theme='dark'] .ui-invert-on-dark {
   filter: brightness(0) invert(1) saturate(0) !important;
 }
 
-/* ensure page sections use theme colors too */
+/* базовый фон секций */
 html, body { background: var(--color-bg); color: var(--color-text); }

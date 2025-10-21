@@ -1,6 +1,4 @@
-:root {
-  --radius-xl: 24px;
-}
+:root { --radius-xl: 24px; }
 .board {
   padding-top: var(--radius-xl);
   overflow: hidden;

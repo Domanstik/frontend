@@ -53,6 +53,7 @@ export default function Navigation() {
 
   return (
     <motion.nav
+      data-hide-on-sheet
       className={styles.nav}
       initial={{ y: 40, opacity: 0 }}
       animate={{ y: 0, opacity: 1, transition: springMd }}

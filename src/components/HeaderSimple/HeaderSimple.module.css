@@ -7,12 +7,21 @@
   gap: 1rem;
   z-index: 10;
   border-radius: 0 0 2rem 2rem;
+
+  /* светлая по умолчанию */
   background: var(--color-surface);
   padding: 1rem 1.5rem;
   width: 100vw;
   height: var(--header-height-simple, 5.5rem);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+/* ТЁМНАЯ ТЕМА */
+:root[data-theme='dark'] .header {
+  background: #1c1c1e;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
 .avatar,
 .avatarStub {
   flex-shrink: 0;
@@ -22,6 +31,12 @@
   background: color-mix(in oklab, var(--color-text) 15%, transparent);
   object-fit: cover;
 }
+/* чуточку темнее кружок в дарке */
+:root[data-theme='dark'] .avatar,
+:root[data-theme='dark'] .avatarStub {
+  background: #2a2a2a;
+}
+
 .title {
   flex: 1;
   margin: 0;
@@ -29,8 +44,15 @@
   font-weight: 700;
   font-size: 1.25rem;
 }
+/* белый заголовок в дарке */
+:root[data-theme='dark'] .title {
+  color: #ffffff;
+}
+
 .right,
 .rightStub {
   width: 2.5rem;
   height: 2.5rem;
+  display: grid;
+  place-items: center;
 }

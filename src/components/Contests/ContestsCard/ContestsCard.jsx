@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import StarIcon from '@mui/icons-material/Star';
 import { springSm } from '../../../lib/motionConfig';
+
+import clockIcon from '@icons/clock.svg';
+import starIcon from '@icons/star.svg';
+
 import styles from './ContestsCard.module.css';
 
-function Stars({ value = 0 }) {
-  const arr = Array.from({ length: 3 }, (_, i) => i < value);
+function StarCount({ value = 0 }) {
   return (
-    <span className={styles.stars}>
-      {arr.map((filled, i) => (
-        <StarIcon key={i} className={filled ? styles.starOn : styles.starOff} />
-      ))}
+    <span className={styles.starCount} aria-label={`звёзд: ${Number(value) || 0}`}>
+      <img src={starIcon} alt="" className={styles.starIcon} />
+      <span className={styles.starNum}>{Number(value) || 0}</span>
     </span>
   );
 }
@@ -33,43 +33,43 @@ export default function ContestsCard({
       whileTap={{ scale: 0.99 }}
       layout
     >
-      {/* Часы как оверлей справа */}
-      <div className={styles.timerWrap}>
-        <AccessTimeIcon className={styles.timerIcon} />
-        <div className={styles.days}>{daysLeft} д.</div>
-      </div>
-
-      <div className={styles.rowTop}>
-        <div className={styles.left}>
+      <div className={styles.wrap}>
+        {/* Лево: заголовок и описание */}
+        <div className={styles.headerLeft}>
           <div className={styles.title} title={title}>{title}</div>
-          {subtitle ? <div className={styles.subtitle} title={subtitle}>{subtitle}</div> : null}
+          {subtitle ? (
+            <div className={styles.subtitle} title={subtitle}>{subtitle}</div>
+          ) : null}
         </div>
-      </div>
 
-      <div className={styles.rowBottom}>
-        <div className={styles.statsCol}>
+        {/* Право: часы (фиксированы в правом верхнем углу) */}
+        <div className={styles.headerRight} aria-hidden="true">
+          <img src={clockIcon} alt="" className={styles.clock} />
+          <div className={styles.days}>{daysLeft}&nbsp;д.</div>
+        </div>
+
+        {/* Статистика */}
+        <div className={styles.stats}>
           <div className={styles.statRow}>
             <span className={styles.label}>Участие</span>
-            <Stars value={participation} />
+            <StarCount value={participation} />
           </div>
           <div className={styles.statRow}>
             <span className={styles.label}>Победа</span>
-            <Stars value={win} />
+            <StarCount value={win} />
           </div>
         </div>
 
-        <motion.button
+        {/* Кнопка — в правом нижнем углу */}
+        <button
           type="button"
           className={`${styles.cta} ${active ? styles.ctaActive : ''}`}
           onClick={onClick}
-          whileTap={{ scale: 0.97 }}
           aria-pressed={active}
         >
           {active ? 'АКТИВНО' : 'УЧАСТВОВАТЬ'}
-        </motion.button>
+        </button>
       </div>
-
-      <div className={styles.lightDivider} />
     </motion.article>
   );
 }

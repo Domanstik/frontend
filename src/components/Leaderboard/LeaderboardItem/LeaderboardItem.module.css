@@ -1,6 +1,5 @@
 :root {
   --ink: #15224b;
-  --muted: rgba(255, 255, 255, 0.8);
 
   --gold: #ffb300;
   --silver: #c0c6d9;
@@ -13,19 +12,18 @@
   --rowMinH: 64px;
 }
 
+/* у ВСЕХ — прозрачный фон строки */
 .item {
   min-height: var(--rowMinH);
   color: #fff;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 1%,
-    rgba(255, 255, 255, 0.3) 100%
-  );
+  background: transparent;
 }
 
+/* только у текущего пользователя — заливка токеном темы
+   (в светлой теме он прозрачен, в тёмной — rgba(31,31,31,.5)) */
 .active {
   min-height: 84px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--lb-row-bg);
 }
 
 .button {
@@ -39,13 +37,12 @@
   cursor: pointer;
 }
 
-/* номер не сжимается */
+/* номер — белый */
 .rank {
   flex: 0 0 auto;
   font-weight: 800;
   font-size: 24px;
-  color: #0e1c5f;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  color: #fff;
 }
 
 /* аватар фикс. размера и не сжимать */
@@ -83,7 +80,7 @@
 
 .name {
   line-height: 1.2;
-  color: var(--muted);
+  color: #fff;
   font-weight: 700;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -91,10 +88,10 @@
   overflow: hidden;
 }
 
-/* разделитель */
+/* разделитель — белая линия (в обеих темах) */
 .divider {
   height: 2px;
-  background: #fff;
+  background: var(--lb-divider);
 }
 
 /* звезда — фикс. ширина, не сжимать */
@@ -104,7 +101,7 @@
   height: var(--star-size);
   position: relative;
   margin-left: auto;
-  contain: layout paint style; /* анимации без влияния на лэйаут */
+  contain: layout paint style;
 }
 
 .starSvg {
@@ -122,5 +119,5 @@
   place-items: center;
   font-weight: 800;
   font-size: 20px;
-  color: #0e1c5f;
+  color: var(--lb-star-ink);
 }

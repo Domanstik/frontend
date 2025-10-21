@@ -12,7 +12,7 @@ export default function ContestsList({ items = [], onOpenContest }) {
       : onOpenContest?.(it);
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} data-hide-on-sheet>   {/* ⬅️ добавили */}
       <motion.div
         className={styles.stack}
         variants={listStagger}
@@ -27,6 +27,7 @@ export default function ContestsList({ items = [], onOpenContest }) {
               participation={it.participation}
               win={it.win}
               daysLeft={it.daysLeft}
+              active={!!it.active}
               onClick={() => handleClick(it)}
             />
           </motion.div>

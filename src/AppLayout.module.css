@@ -1,31 +1,38 @@
 .appLayout {
-  position: relative;
   display: flex;
+  position: relative;
   flex-direction: column;
-  min-height: 100dvh;
-  /* было overflow:hidden; — из-за него и трансформов Framer фиксированный таббар мог
-     попадать в стек родителя и обрезаться */
-  overflow: visible;
   background: transparent;
-  z-index: 1; /* выше фонового слоя */
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
+/* Общий контент: отступ под обычный фикс-хедер */
 .appContent {
-  flex: 1 1 auto;
+  /* под HeaderSimple */
+  margin-top: var(--header-height-simple, 5.5rem);
+
+  /* под Navigation */
+  margin-bottom: var(--nav-height, 5rem);
+
+  flex: 1;
   box-sizing: border-box;
   width: 100%;
-  /* чтобы контент не заходил под таббар */
-  padding-bottom: var(--nav-height, 5rem);
-  margin-bottom: 0;
   overflow-y: auto;
 }
 
-/* для dashboard — высокий header */
+/* Для Dashboard — другой верхний отступ */
 .appContentDashboard {
   margin-top: var(--header-height-dashboard, 180px);
 }
 
-/* для обычных экранов */
-:global(.app-layout--simple) .appContent {
-  margin-top: var(--header-height-simple, 5.5rem);
+/* Просто флаг, если где-то понадобится таргетировать контейнер */
+.appLayoutDashboard {}
+
+/* На очень узких экранах немного уменьшаем нижний отступ под навигацию */
+@media (max-width: 360px) {
+  .appContent {
+    margin-bottom: 5rem;
+  }
 }

@@ -2,18 +2,14 @@ import { motion } from 'framer-motion';
 import { fadeInUp, springSm } from '../../../lib/motionConfig';
 import styles from './LeaderboardItem.module.css';
 
-function ScoreStar({ value, active }) {
+function ScoreStar({ value }) {
   return (
-    <motion.div
-      className={styles.star}
-      animate={active ? { scale: [1, 1.06, 1] } : { scale: 1 }}
-      transition={active ? { duration: 1.6, repeat: Infinity, repeatDelay: 1.2 } : {}}
-    >
+    <div className={styles.star}>
       <svg className={styles.starSvg} viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <path d="M32 4l8.3 17 18.7 2.7-13.5 13.2 3.2 18.5L32 46.9 15.3 55.4l3.2-18.5L5 23.7 23.7 21 32 4z" />
       </svg>
       <span className={styles.starValue}>{value}</span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -41,13 +37,7 @@ export default function LeaderboardItem({
           <span className={styles.rank}>{rank}</span>
 
           {avatar ? (
-            <motion.img
-              src={avatar}
-              alt=""
-              className={`${styles.avatar} ${topClass}`}
-              animate={active ? { scale: 1.06 } : { scale: 1 }}
-              transition={springSm}
-            />
+            <img src={avatar} alt="" className={`${styles.avatar} ${topClass}`} />
           ) : (
             <i className={`${styles.avatar} ${topClass}`} aria-hidden />
           )}
@@ -56,7 +46,7 @@ export default function LeaderboardItem({
             <span className={styles.name}>{name}</span>
           </span>
 
-          <ScoreStar value={score} active={active} />
+          <ScoreStar value={score} />
         </motion.button>
       </motion.li>
 

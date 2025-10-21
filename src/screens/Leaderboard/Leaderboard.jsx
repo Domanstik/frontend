@@ -16,5 +16,6 @@ export default function Leaderboard() {
   useEffect(() => {
     dispatch(setHeader({ title: 'ЗВЕЗДНАЯ ЛИГА', avatar: '' }));
   }, [dispatch]);
+
   return <LeaderboardList items={data} />;
 }

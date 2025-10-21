@@ -1,21 +1,17 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useMemo, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import HeaderSimple from '@components/HeaderSimple/HeaderSimple';
 import HeaderDashboard from '@components/Dashboard/HeaderDashboard/HeaderDashboard';
 import Navigation from '@components/Navigation/Navigation';
+import { selectHeader } from './store/slices/uiSlice';
 
-import { selectHeader, selectTheme, setTheme } from './store/slices/uiSlice';
 import styles from './AppLayout.module.css';
 
 export default function AppLayout() {
   const header = useSelector(selectHeader);
-  const theme = useSelector(selectTheme);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const location = useLocation();
   const isDashboard = location.pathname === '/dashboard';
 
@@ -24,24 +20,20 @@ export default function AppLayout() {
       isDashboard
         ? `${styles.appContent} ${styles.appContentDashboard}`
         : styles.appContent,
-    [isDashboard],
+    [isDashboard]
   );
 
-  const handleToggleTheme = useCallback(() => {
-    dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'));
-  }, [dispatch, theme]);
-
-  const handleOpenNotifications = useCallback(() => {
-    navigate('/notifications');
-  }, [navigate]);
-
   return (
-    <div className={styles.appLayout}>
+    <div
+      className={`${styles.appLayout} ${
+        isDashboard ? styles.appLayoutDashboard : ''
+      }`}
+    >
       {isDashboard ? (
         <HeaderDashboard
+          title={header.title}
           avatarSrc={header.avatar}
-          onNotify={handleOpenNotifications}
-          onToggleTheme={handleToggleTheme}
+          right={header.right}
         />
       ) : (
         <HeaderSimple

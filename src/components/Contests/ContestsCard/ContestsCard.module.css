@@ -1,176 +1,136 @@
-/* меньше ширина часов + безопасный зазор от скруглённого угла */
+/* Карточка */
 .card {
-  --card-radius: 22px;
+  --radius: 22px;
 
-  /* уменьшил базовый размер, сделал уже */
-  --clockSize: clamp(42px, 18vw, 72px);
-  --clockOffsetX: clamp(6px, 2.5vw, 12px);
-  --clockOffsetY: 8px;
+  --contest-ink: #ffffff;
+  --contest-ink-muted: rgba(255,255,255,.8);
+  --contest-stroke: rgba(255,255,255,.9);
 
-  /* чтобы не попасть в четверть круга скругления */
-  --cornerClear: calc(var(--card-radius) + 10px);
-
-  /* ЖЁСТКО укладываем карту в контейнер-рамку */
-  box-sizing: border-box;
-  width: 100%;
-
-  position: relative;
-  padding: 12px 12px 12px;
-
-  /* больше запас справа под уменьшенные часы */
-  padding-right: calc(var(--clockSize) + var(--clockOffsetX) + var(--cornerClear) + 12px);
-
-  /* высота с учётом часов */
-  min-height: max(
-    92px,
-    calc(var(--clockSize) + var(--clockOffsetY) + var(--cornerClear))
-  );
-
-  border-radius: var(--card-radius);
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 24px rgba(17, 34, 68, 0.12);
+  border-radius: var(--radius);
+  background: rgba(31,31,31,.5);
+  border: 1px solid var(--contest-stroke);
+  padding: 16px 18px;
   text-align: left;
-  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* верх */
-.rowTop {
-  display: block;
-}
-.left {
-  min-width: 0;
+/* Светлая тема */
+:root:not([data-theme="dark"]) .card {
+  --contest-ink: #111569;
+  --contest-ink-muted: color-mix(in oklab, #111569 80%, transparent);
+  --contest-stroke: rgba(17,21,105,.9);
 }
 
+/* Сетка */
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "headerLeft headerRight"
+    "stats      ."
+    "stats      cta";
+  column-gap: 16px;
+  row-gap: 10px;
+  align-items: start;
+}
+
+/* Левая шапка */
+.headerLeft { grid-area: headerLeft; min-width: 0; }
 .title {
-  font-weight: 700;
-  color: #0b2a5a;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--contest-ink);
+  font-weight: 500;                    /* Medium для названия */
+  font-size: clamp(18px, 5vw, 24px);
+  line-height: 1.15;
+  margin: 0 0 6px;
+  word-break: break-word;
 }
 .subtitle {
-  margin-top: 2px;
-  color: rgba(11, 42, 90, 0.65);
+  color: var(--contest-ink-muted);
+  font-weight: 300;                    /* тонкий подзаголовок */
+  font-size: 14.5px;
+  margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* часы — сдвинул внутрь от угла сильнее */
-.timerWrap {
-  position: absolute;
-  top: calc(var(--clockOffsetY) + var(--cornerClear));
-  right: calc(var(--clockOffsetX) + var(--cornerClear));
-  width: var(--clockSize);
+/* Правый верх — ФИКСИРОВАНО */
+.headerRight {
+  grid-area: headerRight;
+  align-self: start;
+  justify-self: end;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  pointer-events: none;
+  gap: 6px;
 }
-.timerIcon {
-  width: var(--clockSize);
-  height: var(--clockSize);
-  font-size: var(--clockSize) !important;
-  color: rgba(11, 42, 90, 0.55);
-  line-height: 1;
+.clock {
+  width: clamp(40px, 14vw, 64px);
+  height: auto;
+  display: block;
+  filter: none;                        /* светлая — естественный цвет */
+}
+:root[data-theme="dark"] .clock {
+  filter: brightness(0) invert(1) saturate(0); /* тёмная — белая иконка */
 }
 .days {
-  margin-top: 2px;
-  color: rgba(11, 42, 90, 0.7);
-  font-size: 12px;
+  color: var(--contest-ink);
+  font-weight: 300;
+  font-size: 13px;
   line-height: 1;
 }
 
-/* низ карточки */
-.rowBottom {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-.statsCol {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1 1 auto;
-  min-width: 0;
+/* Статистика */
+.stats {
+  grid-area: stats;
+  display: grid;
+  grid-auto-rows: min-content;
+  row-gap: 8px;
 }
 .statRow {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 .label {
-  color: #0b2a5a;
+  width: 88px;
+  color: var(--contest-ink);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.1;
 }
 
-.stars {
-  display: inline-flex;
-  gap: 2px;
-  transform: translateY(1px);
-}
-.starOn {
-  color: #ffc107;
-}
-.starOff {
-  color: rgba(0, 0, 0, 0.25);
-}
+/* Звёзды */
+.starCount { display: inline-flex; align-items: center; gap: 8px; }
+.starIcon  { width: 20px; height: 20px; display: inline-block; }
+.starNum   { color: var(--contest-ink); font-weight: 500; font-size: 19px; line-height: 1; }
 
-/* CTA */
+/* Кнопка — тонкий текст и контур 2px */
 .cta {
-  white-space: nowrap;
-  padding: 8px 14px;
+  grid-area: cta;
+  justify-self: end;
+  align-self: end;
+
+  margin-top: 6px;
+  padding: 10px 18px;
   border-radius: 999px;
-  border: 2px solid rgba(11, 42, 90, 0.5);
-  background: rgba(255, 255, 255, 0.9);
-  color: #0b2a5a;
-  font-weight: 800;
-  font-size: 12px;
+  background: transparent;
+  border: 2px solid var(--contest-stroke);   /* было 1px */
+  color: var(--contest-ink);
+  font-weight: 300;                          /* Light */
+  font-size: 12px;                           /* меньше высота букв */
   line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
-  flex: 0 0 auto;
 }
-.cta:hover {
-  filter: brightness(0.98);
-}
-.cta:active {
-  transform: translateY(0.5px);
-}
-.ctaActive {
-  border-color: rgba(11, 42, 90, 0.8);
-  background: rgba(255, 255, 255, 0.95);
-}
+.cta:hover { opacity: .92; }
+.cta:active { transform: translateY(.5px); }
+.ctaActive {}
 
-/* декоративная линия */
-.lightDivider {
-  margin-top: 10px;
-  height: 2px;
-  width: 88%;
-  margin-left: 6%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 20%,
-    #ffffff 80%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  border-radius: 2px;
-}
-
-/* дополнительные уменьшения для сверх-узких экранов */
+/* Компактный режим */
 @media (max-width: 340px) {
-  .card {
-    --clockSize: 40px;
-    --cornerClear: calc(var(--card-radius) + 12px);
-    --clockOffsetX: 6px;
-    padding-right: calc(
-      var(--clockSize) + var(--clockOffsetX) + var(--cornerClear) + 10px
-    );
-    min-height: calc(var(--clockSize) + var(--clockOffsetY) + var(--cornerClear) + 6px);
-  }
+  .title { font-size: 20px; }
+  .label, .starNum { font-size: 17px; }
+  .starIcon { width: 18px; height: 18px; }
 }

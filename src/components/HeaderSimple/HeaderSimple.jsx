@@ -9,8 +9,14 @@ export default function HeaderSimple({ title, avatarSrc, right }) {
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0, transition: springSm }}
     >
-      {avatarSrc ? <img src={avatarSrc} alt="" className={styles.avatar} /> : <i className={styles.avatarStub} />}
+      {avatarSrc ? (
+        <img src={avatarSrc} alt="" className={styles.avatar} />
+      ) : (
+        <i className={styles.avatarStub} />
+      )}
+
       <h1 className={styles.title}>{title}</h1>
+
       {right ? <div className={styles.right}>{right}</div> : <i className={styles.rightStub} />}
     </motion.header>
   );
